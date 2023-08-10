@@ -1,20 +1,13 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import *
 from .serializer import *
 from rest_framework.response import Response
 
 
 class FoundDataView(APIView):
     def get(self, request):
-        output = [
-            {
-                "url_groupe": output.url_groupe,
-                "date": output.date,
-                "found_text": output.found_text
-            } for output in found_data.objects.all()
-        ]
-        return Response(output)
+        queryset = found_data.objects.all()
+        serializer = FoundDataSerializer(instance=queryset, many=True)
+        return Response({'data': serializer.data})
 
     def post(self, request):
         serializer = FoundDataSerializer(data=request.data)
@@ -25,13 +18,9 @@ class FoundDataView(APIView):
 
 class SearchDataView(APIView):
     def get(self, request):
-        output = [
-            {
-                "url_groupe": output.url_groupe,
-                "search_string": output.search_string
-            } for output in search_data.objects.all()
-        ]
-        return Response(output)
+        queryset = search_data.objects.all()
+        serializer = SearchDataSerializer(instance=queryset, many=True)
+        return Response({'data': serializer.data})
 
     def post(self, requset):
         serializer = SearchDataSerializer(data=requset.data)
