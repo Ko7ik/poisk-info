@@ -1,0 +1,15 @@
+{
+  "vk" : {
+    "auth" : {
+      "login" : "+79933522605",
+      "password" : "qwerty1234QQWW"
+    },
+    "urls" : {
+      "feed" : "https://vk.com/yaroslavllive",
+      "login" : "https://vk.com/login"
+    }
+  },
+  "paths" : {
+    "cache_file" : "cache.txt"
+  }
+}
