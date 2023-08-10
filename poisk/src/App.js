@@ -1,26 +1,34 @@
 import React from 'react';
 import Form from './components/Form';
 import Menu from './components/Menu';
-import { useState,useEffect } from 'react';
+import Monitor from './components/Monitor';
+import { Routes, Route, Link } from 'react-router-dom';
+
+import {FaSearch} from 'react-icons/fa'
+import {MdMonitorHeart} from 'react-icons/md'
+
+
 
 
 
 class App extends React.Component {
   render() {
     return(<div className='body'>
-      <Menu/>
-      <Form onData={this.formData}/>
+        <Menu/>
+   
+        <Routes>
+            <Route path="/" element={<Form/>}></Route>
+            <Route path="/monitor" element={<Monitor/>}></Route>
+        </Routes>
+
+
     </div>
       
     )
-  }
-
-
-  formData(){
     
   }
-
   
+ 
 }
 
 

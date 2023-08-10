@@ -35,7 +35,7 @@ class Form extends React.Component {
 
     render () {
         return (
-            <div className="Form">
+            <div className="Main">
                 
                 <form onSubmit={this.handleSubmit} ref={(el)=> this.myForm = el}>
                     <div className="ico"> <SiVk size={42}/></div>

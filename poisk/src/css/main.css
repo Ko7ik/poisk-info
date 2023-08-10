@@ -24,7 +24,7 @@ body {
 
 }
 
-.Form {
+.Main  {
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -54,10 +54,10 @@ form {
     
 }
 
-.Form form input,
-.Form form label, 
-.Form form select,
-.Form form textarea
+.Main form input,
+.Main  form label, 
+.Main  form select,
+.Main  form textarea
 {
     text-align: center;
     font-family:'Roboto', sans-serif;
@@ -70,13 +70,13 @@ form {
     padding: 0.5rem;
 }
 
-.Form form select,
-.Form form input,
-.Form form textarea {
+.Main  form select,
+.Main  form input,
+.Main  form textarea {
     background-color: #ebebeb;
 }
 
-.Form form button {
+.Main  form button {
     width: 100%;
     cursor: pointer;
     transition: transform 500ms ease;
@@ -86,7 +86,7 @@ form {
     border-radius: 2rem;
 }
 
-.Form form button:hover{
+.Main  form button:hover{
     background: #202020;
     transform: scale(1.01);
 }
