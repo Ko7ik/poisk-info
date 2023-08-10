@@ -6,9 +6,10 @@ import App from './App'
 
 import './css/main.css'
 
-const app = ReactDOMClient.createRoot(document.getElementById('app'))
+const app = ReactDOMClient.createRoot(document.getElementById('app'));
 app.render(
     <BrowserRouter>
         <App />
     </BrowserRouter>,
-)
+);
+
