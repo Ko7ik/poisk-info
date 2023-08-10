@@ -22,8 +22,8 @@ class SearchDataView(APIView):
         serializer = SearchDataSerializer(instance=queryset, many=True)
         return Response({'data': serializer.data})
 
-    def post(self, requset):
-        serializer = SearchDataSerializer(data=requset.data)
+    def post(self, request):
+        serializer = SearchDataSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
