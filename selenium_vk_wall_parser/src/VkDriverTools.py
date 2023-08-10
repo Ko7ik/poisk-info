@@ -1,11 +1,15 @@
+# -*- coding: utf-8 -*-
+
 from selenium.common.exceptions import NoSuchElementException, MoveTargetOutOfBoundsException
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.relative_locator import locate_with
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import datetime
 
 
 class VkDriverTools:
@@ -23,58 +27,58 @@ class VkDriverTools:
     def get_driver(self):
         return self.driver
 
+    @property
     def get_feed(self):
         self.driver.get(self.vk_feed_url)
         time.sleep(2)
         wall_data = []
         image = []
-        # Конец страницы, пока лента подгружается мы не можем до него добраться
-        #footer_el = self.driver.find_element(By.ID, 'post-199159121_1249')
 
         # Move down page to bottom
-        y_position = 0
-        y_position += 400
-        self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
-        #self.driver.execute_script(f'window.scrollTo(0, {y_position});')
+        y_position = 400
+
+        # self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
+
         time.sleep(1)
-
-        '''''
         while True:
-            print('y_position:', y_position)
-            try:
-                ActionChains(self.driver).move_to_element(footer_el).perform()
-                break
-            except MoveTargetOutOfBoundsException:
-                y_position += 250
-                self.driver.execute_script(f'window.scrollTo(0, {y_position});')
-                time.sleep(1)
- '''''
-        
-        posts = self.driver.find_elements(By.CLASS_NAME, '_post')
-        for post in posts:
-            image = []
-            try:
-                id = post.find_element(By.CLASS_NAME, '_post').get_attribute('data-post-id')
-                urls = post.find_elements(By.CLASS_NAME, 'MediaGrid')
-                for url in urls:
-                    try:
-                        img = url.find_element(By.CLASS_NAME, 'MediaGrid__imageElement').get_attribute('src')
-                        image.append(img)
-                        print(image)
-                    except NoSuchElementException as e:
-                        pass
-                text = post.find_element(By.CLASS_NAME,'wall_post_text')
-                print(text)
-                text1 = text.find_element(By.TAG_NAME,'span').text
-                #text1 = text1.find_element(By.TAG_NAME,'span style').text
-                text = text.text
-                print(text1)
-                wall_data.append({"image": 'im', "text": text, "id": id, "link": "https://vk.com/wall{}".format(id)})
-            except NoSuchElementException as e:
-                pass
-
+            y_position += 500
+            self.driver.execute_script(f'window.scrollTo(0, {y_position});')
+            # target_element = self.driver.find_element(By.CLASS_NAME, 'page_block')
+            # self.driver.execute_script("arguments[0].scrollIntoView();", target_element)
+            time.sleep(1)
+            y_position += 500
+            self.driver.execute_script(f'window.scrollTo(0, {y_position});')
+            time.sleep(1)
+            posts = self.driver.find_elements(By.CLASS_NAME, '_post')
+            for post in posts:
+                image = []
+                try:
+                    id = post.find_element(By.CLASS_NAME, '_post').get_attribute('data-post-id')
+                    times = post.find_element(By.CLASS_NAME, 'PostHeaderSubtitle__item')
+                    times = times.find_element(By.TAG_NAME, 'span').get_attribute('abs_time')
+                    if times.find('СЃРµРіРѕРґРЅСЏ') != -1:
+                        times = times.replace('СЃРµРіРѕРґРЅСЏ', str(datetime.date.today()))
+                    urls = post.find_elements(By.CLASS_NAME, 'MediaGrid__thumb')
+                    print(urls)
+                    for url in urls:
+                        try:
+                            img = url.find_element(By.CLASS_NAME, 'MediaGrid__imageElement').get_attribute('src')
+                            image.append(img)
+                        except NoSuchElementException as e:
+                            try:
+                                img = url.find_element(By.CLASS_NAME, 'MediaGrid__imageSingle').get_attribute('src')
+                                image.append(img)
+                            except NoSuchElementException as e:
+                                pass
+                    print(image)
+                    button = post.find_element(By.CLASS_NAME, 'PostTextMore').click()
+                    text = post.find_element(By.CLASS_NAME, 'wall_post_text')
+                    text = text.text
+                    wall_data.append({"time": times, "image": 'im', "text": text, "id": id,
+                                      "link": "https://vk.com/wall{}".format(id)})
+                except NoSuchElementException as e:
+                    pass
         return wall_data
-
 
     def login(self):
         self.driver.get(self.vk_login_url)
