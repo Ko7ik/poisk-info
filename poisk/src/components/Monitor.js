@@ -1,12 +1,8 @@
-import React from "react";
+import React from 'react'
 
-class Monitor extends React.Component  {
+class Monitor extends React.Component {
     render() {
-        return(
-            <div className="Main">
-
-            </div>
-        )
+        return <div className="Main"></div>
     }
 }
 

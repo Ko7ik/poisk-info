@@ -1,57 +1,47 @@
-import React from 'react';
-import Form from './components/Form';
-import Menu from './components/Menu';
-import Monitor from './components/Monitor';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react'
+import { FaSearch } from 'react-icons/fa'
+import { MdMonitorHeart } from 'react-icons/md'
+import { Link, Route, Routes } from 'react-router-dom'
 
-import {FaSearch} from 'react-icons/fa'
-import {MdMonitorHeart} from 'react-icons/md'
-
-
-
-
+//import Form from './components/Form'
+import { FormFC } from './components/FormFC'
+import Menu from './components/Menu'
+import Monitor from './components/Monitor'
 
 class App extends React.Component {
-  render() {
-    return(<div className='body'>
-        <Menu/>
-   
-        <Routes>
-            <Route path="/" element={<Form/>}></Route>
-            <Route path="/monitor" element={<Monitor/>}></Route>
-        </Routes>
+    render() {
+        return (
+            <div className="body">
+                <Menu />
 
-
-    </div>
-      
-    )
-    
-  }
-  
- 
+                <Routes>
+                    <Route path="/" element={<FormFC />}></Route>
+                    <Route path="/monitor" element={<Monitor />}></Route>
+                </Routes>
+            </div>
+        )
+    }
 }
-
-
 
 export default App
 
-/* 
+/*
         class App extends React.Component {
 
         constructor(props) {
-                super(props) // (строка по умолчанию) передача свойств (props) в конструктор с помощью метода super 
+                super(props) // (строка по умолчанию) передача свойств (props) в конструктор с помощью метода super
                 this.state = {
                     helpText: "Help!",
                     userData: ""
-                } 
+                }
                 this.inputClick = this.inputClick.bind(this)
                 // работа с динамичиескими состояниями (state) и присовение состояний
                 // helpText: 'Help!' - задаем значение по умолчанию
                 // добавляем обращение к state, например <h1> {this.state.helpText} </h1>
-                // this.inputClick - обращение к методу = this.inputClick.bind(this) - обращение к сетоду bind 
+                // this.inputClick - обращение к методу = this.inputClick.bind(this) - обращение к сетоду bind
                 // позволяет взаимодейтсвовать состояниям с inputClick
             }
-            
+
 
         //helpText = 'Help!' //  в классах задается без const
         // при заданном в конструкторе состоянии по умолчению не нужен
@@ -62,11 +52,11 @@ export default App
             }
         // хук для класса аналог useEffect  параметр prevProp - предыдущее стостояние,метод срабатывает автоматически, когда внутри компонента
         // изменяется состояние
-            
+
             render () {
-            return ( 
+            return (
                 <div className='name'>
-                
+
                 <Header title = " Шапка сайта" name= ""/>
                 <h1> {this.state.helpText} </h1>
                 <h2>{this.state.userData} </h2>
@@ -74,27 +64,27 @@ export default App
                 onChange={event => this.setState ({userData: event.target.value})}
                 onClick={this.inputClick} onMouseEnter={this.mouseOver} />
                 <p>{this.state.helpText === "Help!" ? "Yes" : "No" } </p>
-                <Image image={logo} />   
-                <img src={logo}/> 
-                
-                </div> ) 
-                // вывод div с компонентами 
+                <Image image={logo} />
+                <img src={logo}/>
+
+                </div> )
+                // вывод div с компонентами
                 // <Image image={logo} - вывод изображений через подключенный компонент
                 //<img src={logo}/> + import logo from './img/image1.png' - вывод напрямую
                 //onChange={event => this.setState ({userData: event.target.value})}
                 //параметр event для получения информации, которую ввел пользователь (event.target.value)
         }
-        
-        
+
+
         inputClick() //метод нажатия на инпут поле
             {
                 this.setState({helpText:"Changed"}) // при нажатии на инпут поле извенить значение help.Text
                 console.log ("Click!!") // вывод в консоль
-            }   
+            }
         mouseOver() {console.log ("Mouse!!")}
-        
+
         }
-  
+
 
     class App extends React.Component {
 
@@ -108,7 +98,7 @@ export default App
                         lastname: 'Marley',
                         bio: 'loren ipsum.....',
                         age: '40',
-                        isHappy: true 
+                        isHappy: true
                     },
                     {
                         id:2,
@@ -116,7 +106,7 @@ export default App
                         lastname: 'Davis',
                         bio: 'loren ipsum...123..',
                         age: '22',
-                        isHappy: false 
+                        isHappy: false
                     },
                 ]
             }
@@ -126,7 +116,7 @@ export default App
         }
         render () {
             return (<div>
-              
+
                 <Header title = " Список пользователей" />
                 <main>
                     <Users users={this.state.users} onEdit={this.editUser} onDelete={this.deleteUser}/>
@@ -159,7 +149,7 @@ export default App
             this.setState ({users:[...this.state.users, {id, ...user}]})
             //меняем список users и добавляем новый (id+все остальные парамеры юзер)
         }
-    
+
     }
 
  */
