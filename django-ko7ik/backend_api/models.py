@@ -1,6 +1,6 @@
 from django.db import models
 
-
+# с большой буквы навания классов camelcase SearchData
 class search_data(models.Model):
     """Таблица с данными для поиска"""
     url_groupe = models.URLField(primary_key=True, blank=True, verbose_name="URL Группы")
