@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #313131;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+ 
+    
+}
+
+.body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
+
+
+}
+
+.Form {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 2;
+    justify-content: center;
+    align-items: center;
+    margin-inline:2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: space-between;
+    align-items: stretch;
+    text-align: center;
+    background-color: #D9D9D9;
+    color: #313131;
+    padding: 3em;
+    border-radius: 1rem;
+    
+
+}
+
+.ico {
+    margin-bottom: 3rem;
+    
+}
+
+.Form form input,
+.Form form label, 
+.Form form select,
+.Form form textarea
+{
+    text-align: center;
+    font-family:'Roboto', sans-serif;
+    font-weight: 500;
+    border: 0;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    outline: none;
+    font-size: 15px;
+    padding: 0.5rem;
+}
+
+.Form form select,
+.Form form input,
+.Form form textarea {
+    background-color: #ebebeb;
+}
+
+.Form form button {
+    width: 100%;
+    cursor: pointer;
+    transition: transform 500ms ease;
+    background-color: #313131;
+    color: #D9D9D9;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.Form form button:hover{
+    background: #202020;
+    transform: scale(1.01);
+}
+
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background:  #313131;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+   
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #202020;
+  }
+
+.radio {
+    display: grid;
+    grid-template-columns: repeat(2, 10rem [col-start]);
+
+
+    
+}
+
+.menu {
+    min-width: 5em;
+    height: 100vh;
+    flex-shrink: 3;
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search, .monitor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+}
+
+ 
+
+.search:hover, .monitor:hover{
+    background: #ACACAC;
+    transform: scale(1.1);
+}
