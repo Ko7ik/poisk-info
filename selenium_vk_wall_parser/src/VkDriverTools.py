@@ -32,32 +32,45 @@ class VkDriverTools:
         self.driver.get(self.vk_feed_url)
         time.sleep(2)
         wall_data = []
-        image = []
 
         # Move down page to bottom
         y_position = 400
 
         # self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
-
         time.sleep(1)
-        while True:
-            y_position += 500
-            self.driver.execute_script(f'window.scrollTo(0, {y_position});')
-            # target_element = self.driver.find_element(By.CLASS_NAME, 'page_block')
+        k = -1
+        flag = 1
+        # y_position += 500
+        time.sleep(1)
+        # self.driver.execute_script(f'window.scrollTo(0, {y_position});')
+        while flag == 1:
+            k += 1
             # self.driver.execute_script("arguments[0].scrollIntoView();", target_element)
-            time.sleep(1)
-            y_position += 500
+            y_position1 = y_position
+            y_position += 600
             self.driver.execute_script(f'window.scrollTo(0, {y_position});')
-            time.sleep(1)
+            #self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
+            time.sleep(5)
             posts = self.driver.find_elements(By.CLASS_NAME, '_post')
             for post in posts:
                 image = []
                 try:
+                    # Выгрузка ID
                     id = post.find_element(By.CLASS_NAME, '_post').get_attribute('data-post-id')
-                    times = post.find_element(By.CLASS_NAME, 'PostHeaderSubtitle__item')
-                    times = times.find_element(By.TAG_NAME, 'span').get_attribute('abs_time')
-                    if times.find('сегодня') != -1:
-                        times = times.replace('сегодня', str(datetime.date.today()))
+
+                    # Выгрузка времени публикации поста
+                    try:
+                        times = post.find_element(By.CLASS_NAME, 'PostHeaderSubtitle__item')
+                        times = times.find_element(By.TAG_NAME, 'span').get_attribute('abs_time')
+                        if times.find('сегодня') != -1:
+                            times = times.replace('сегодня', str(datetime.date.today()))
+                    except NoSuchElementException as e:
+                        try:
+                            times = post.find_element(By.CLASS_NAME, 'PostHeaderSubtitle__item').text
+                        except NoSuchElementException as e:
+                            pass
+
+                    # Выгрузка ссылок картинок
                     urls = post.find_elements(By.CLASS_NAME, 'MediaGrid__thumb')
                     print(urls)
                     for url in urls:
@@ -72,10 +85,40 @@ class VkDriverTools:
                                 pass
                     print(image)
                     button = post.find_element(By.CLASS_NAME, 'PostTextMore').click()
+                    y_position += 1000
+                    self.driver.execute_script(f'window.scrollTo(0, {y_position});')
+                    # Проверка на кнопку "показать еще"
+                    try:
+                        # Находим элемент, который перекрывается
+                        intercepting_element = post.find_element(By.CLASS_NAME, 'HeaderNav__item')
+
+                        # Находим целевой элемент для клика
+                        target_element = post.find_element(By.CLASS_NAME, 'PostTextMore')
+
+                        # Создаем экземпляр класса ActionChains
+                        actions = ActionChains(self.driver)
+
+                        # Наводим курсор на элемент, который перекрывает
+                        actions.move_to_element(intercepting_element)
+
+                        # Кликаем по целевому элементу
+                        #actions.click(target_element).perform()
+
+
+                        # time.sleep(5)
+                    except NoSuchElementException as e:
+                        pass
+
+                    # Выгрузка текста из поста
                     text = post.find_element(By.CLASS_NAME, 'wall_post_text')
-                    text = text.text
+                    text = text.text.replace('\u20bd', '')
+                    print(text)
+
+                    # передача для создания итогого файла
                     wall_data.append({"time": times, "image": 'im', "text": text, "id": id,
                                       "link": "https://vk.com/wall{}".format(id)})
+                    if k == 1:
+                        flag = 0
                 except NoSuchElementException as e:
                     pass
         return wall_data
@@ -86,10 +129,14 @@ class VkDriverTools:
         email_input.clear()
         email_input.send_keys(self.vk_login)
         email_input.send_keys(Keys.ENTER)
-        time.sleep(5)
-        slize = self.driver.find_element(By.CSS_SELECTOR, '.vkc__PureButton__button.vkc__Link__link.vkc__Link__primary'
-                                                          '.vkc__Bottom__switchToPassword').click()
-        time.sleep(5)
+        time.sleep(10)
+        try:
+            slize = self.driver.find_element(By.CSS_SELECTOR,
+                                             '.vkc__PureButton__button.vkc__Link__link.vkc__Link__primary'
+                                             '.vkc__Bottom__switchToPassword').click()
+            time.sleep(5)
+        except NoSuchElementException as e:
+            pass
         password_input = self.driver.find_element(By.NAME, 'password')
         password_input.clear()
         password_input.send_keys(self.vk_password)
