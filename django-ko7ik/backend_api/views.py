@@ -1,11 +1,16 @@
 from rest_framework.views import APIView
 from .serializer import *
 from rest_framework.response import Response
+from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse("<h1>MAIN PAGE</h1>")
 
 
 class FoundDataView(APIView):
     def get(self, request):
-        queryset = found_data.objects.all()
+        queryset = FoundData.objects.all()
         serializer = FoundDataSerializer(instance=queryset, many=True)
         return Response({'data': serializer.data})
 
@@ -18,7 +23,7 @@ class FoundDataView(APIView):
 
 class SearchDataView(APIView):
     def get(self, request):
-        queryset = search_data.objects.all()
+        queryset = SearchData.objects.all()
         serializer = SearchDataSerializer(instance=queryset, many=True)
         return Response({'data': serializer.data})
 
