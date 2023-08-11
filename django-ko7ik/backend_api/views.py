@@ -37,10 +37,29 @@ class SearchDataList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class SearchDataDetailView(generics.RetrieveUpdateDestroyAPIView):
+class SearchDataUpdate(generics.RetrieveUpdateAPIView):
     queryset = SearchData.objects.all()
     serializer_class = SearchDataSerializer
 
+
+class SearchDataDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SearchData.objects.all()
+    serializer_class = SearchDataSerializer
+
+
+class FoundDataList(generics.ListCreateAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
+
+
+class FoundDataUpdate(generics.RetrieveUpdateAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
+
+
+class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
 
 # ------------ FoundDATA запросы ------------
 
@@ -71,16 +90,4 @@ class SearchDataDetailView(generics.RetrieveUpdateDestroyAPIView):
 #         return Response({"post": serializer.data})
 
 # Заменяем APIView на класс generic
-
-class FoundDataList(generics.ListCreateAPIView):
-    queryset = FoundData.objects.all()
-    serializer_class = FoundDataSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
-
-class FoundDataDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = FoundData.objects.all()
-    serializer_class = FoundDataSerializer
-
-
 

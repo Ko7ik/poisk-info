@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'poiskinfoDB',
+        'NAME': 'poiskinfodb',
         'USER': 'postgres',
         'PASSWORD': 'ko7ik',
         'HOST': 'localhost'

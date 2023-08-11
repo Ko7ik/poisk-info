@@ -16,12 +16,14 @@ class SearchData(models.Model):
 
 class FoundData(models.Model):
     """Таблица с данными для вывода"""
-    url_group = models.ForeignKey('SearchData', on_delete=models.PROTECT, null=True, verbose_name="URL Группы")
-    date = models.DateTimeField(null=True, blank=False, auto_now_add=False, verbose_name="Дата и время")
-    found_text = models.TextField(null=True, verbose_name='Найденные данные')
+    time = models.CharField(max_length=50, blank=True, verbose_name="Дата и время публикации")
+    image = models.FileField(upload_to='img/', verbose_name="Изображения")
+    text = models.TextField(null=True, verbose_name='Найденные данные')
+    id_post = models.CharField(max_length=20, blank=True, verbose_name="ID поста")
+    link = models.ForeignKey('SearchData', on_delete=models.PROTECT, null=True, verbose_name="URL Группы")
 
     def __str__(self):
-        return f'{self.url_group}'
+        return f'{self.link}'
 
     class Meta:
         verbose_name = 'Результат поиска'
