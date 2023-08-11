@@ -1,18 +1,14 @@
 from rest_framework import serializers
-from rest_framework.renderers import JSONRenderer
-from .models import search_data
-from .models import found_data
+from .models import *
 
 
-
-class SearchSerializer(serializers.Serializer):
-        url_groupe = serializers.URLField()
-        search_text = serializers.CharField()
-
-class FoundSerializer(serializers.Serializer):
-        url_groupe = serializers.URLField()
-        date_time = serializers.DateTimeField(read_only=True)
-        found_text = serializers.CharField()
+class FoundDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoundData
+        fields = ['url_group', 'date', 'found_text']
 
 
-
+class SearchDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SearchData
+        fields = ['url_group', 'search_string']

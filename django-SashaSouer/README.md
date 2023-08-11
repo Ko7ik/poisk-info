@@ -2,4 +2,4 @@
 POISK-INFO
 
 #
-Django Rest Framework - SashaSouer
+Django Rest Framework - Ko7ik
