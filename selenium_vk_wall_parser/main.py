@@ -2,7 +2,6 @@
 
 from src.JsonTools import JsonTools
 from src.VkDriverTools import VkDriverTools
-from src.Cache import Cache
 from datetime import datetime
 
 
@@ -13,11 +12,9 @@ def formatPostToText(post):
 if __name__ == '__main__':
     jsonTools = JsonTools()
     config = jsonTools.parse('config.example.json')
-    cache = Cache(config['paths']['cache_file'])
     vkDriverTools = VkDriverTools(config)
     vkDriverTools.login()
 
     posts = vkDriverTools.get_feed
-    for post in posts:
-        cache.save(formatPostToText(post))
+    JsonTools.save(posts)
     vkDriverTools.driver.close()
