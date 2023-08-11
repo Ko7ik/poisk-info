@@ -3,7 +3,7 @@ from django.db import models
 
 class SearchData(models.Model):
     """Таблица с данными для поиска"""
-    url_group = models.URLField(primary_key=True, blank=True, verbose_name="URL Группы")
+    url_group = models.URLField(max_length=200, null=False, blank=True, verbose_name="URL Группы")
     search_string = models.CharField(max_length=200, null=False, blank=True, verbose_name="Искомая строка")
 
     def __str__(self):
