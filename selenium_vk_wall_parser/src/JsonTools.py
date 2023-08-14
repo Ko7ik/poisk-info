@@ -14,4 +14,4 @@ class JsonTools:
     def save(data):
         with open('data.json', 'w', encoding='utf-8') as json_file:
             # Записываем данные в файл в формате JSON
-            json.dump(data, json_file, indent=4)
+            json.dump(data, json_file, indent=4,ensure_ascii=False)
