@@ -10,7 +10,7 @@ export const FormFC = () => {
         //person: false,
         url_groupe: '',
         search_string: '',
-        autorisation: 'Token 321ad5795e0d796a64589391d023ea5232c17a94',
+        //+ токен
     }
     // спользование хука useState для хранения состояния
     const [form, setForm] = React.useState(iniState)
@@ -48,7 +48,7 @@ export const FormFC = () => {
                     <label htmlFor="fid-2">Пользователь</label>
                     <input
                         id="fid-1"
-                        type="checkbox"
+                        type="radio"
                         name="public"
                         value="public"
                         checked={form.radio === 'public' ? true : false}
@@ -56,7 +56,7 @@ export const FormFC = () => {
                     />
                     <input
                         id="fid-2"
-                        type="checkbox"
+                        type="radio"
                         name="person"
                         value="user"
                         checked={form.radio === 'user' ? true : false}

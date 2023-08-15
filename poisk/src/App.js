@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
-//import Form from './components/Form'
 import { FormFC } from './components/FormFC'
 import MenuFC from './components/MenuFC'
 import MonitorFC from './components/MonitorFC'
 import Login from './components/Login'
+import Register from './components/Register'
 
 function App() {
 
@@ -22,7 +22,12 @@ function App() {
         </div>
     )
 
-    :  <Login />
+    :  <Routes> 
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/*" element={<Navigate replace to="/login"/>}/>
+        </Routes>
+        
 
 }
 
