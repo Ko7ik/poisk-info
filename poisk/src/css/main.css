@@ -45,6 +45,7 @@ form {
     color: #313131;
     padding: 3em;
     border-radius: 1rem;
+   
     
 
 }
@@ -115,14 +116,25 @@ input[type=file]::file-selector-button {
 }
 
 .menu {
+    flex: 0 0 auto;
+    overflow-y: auto;
     min-width: 5em;
-    height: 100vh;
     flex-shrink: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexmenu {
+    height: 100vh;
+    position: fixed;
     background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 .search, .monitor {
@@ -137,5 +149,52 @@ input[type=file]::file-selector-button {
 
 .search:hover, .monitor:hover{
     background: #ACACAC;
+    transform: scale(1.1);
+}
+
+.Main2  {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 2;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline:2rem;
+}
+.ContentBlock{
+    display: flex;
+    flex: 0 0 100%;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    background-color: #D9D9D9;
+    color: #313131;
+    padding: 3em;
+    margin: 2rem;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+
+}
+
+.login form h2 {
+    margin-bottom: 2.5rem;
+}
+
+.login p {
+    text-decoration: none;
+    font-size: 13px;
+    color: #D9D9D9;
+}
+
+.login p:hover {
+    text-decoration: underline;
     transform: scale(1.1);
 }

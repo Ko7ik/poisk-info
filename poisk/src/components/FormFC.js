@@ -6,9 +6,11 @@ import axios from 'axios'
 
 export const FormFC = () => {
     const iniState = {
-        radio: false,
-        url: '',
-        keywords: '',
+        //public: false,
+        //person: false,
+        url_groupe: '',
+        search_string: '',
+        autorisation: 'Token 321ad5795e0d796a64589391d023ea5232c17a94',
     }
     // спользование хука useState для хранения состояния
     const [form, setForm] = React.useState(iniState)
@@ -25,8 +27,7 @@ export const FormFC = () => {
         //отчищаем форму
         setForm(iniState)
 
-        const response = await axios.post('https://reqres.in/api/users', form)
-
+        const response = await axios.post('http://192.168.0.189:8000/search_data/', form)
         console.log(response)
     }
 
@@ -47,16 +48,16 @@ export const FormFC = () => {
                     <label htmlFor="fid-2">Пользователь</label>
                     <input
                         id="fid-1"
-                        type="radio"
-                        name="radio"
+                        type="checkbox"
+                        name="public"
                         value="public"
                         checked={form.radio === 'public' ? true : false}
                         onChange={handleChange}
                     />
                     <input
                         id="fid-2"
-                        type="radio"
-                        name="radio"
+                        type="checkbox"
+                        name="person"
                         value="user"
                         checked={form.radio === 'user' ? true : false}
                         onChange={handleChange}
@@ -64,14 +65,14 @@ export const FormFC = () => {
                 </div>
                 <input
                     placeholder="URL"
-                    name="url"
-                    value={form.url}
+                    name="url_groupe"
+                    value={form.url_groupe}
                     onChange={handleChange}
                 />
                 <textarea
                     placeholder="Ключевые слова"
-                    name="keywords"
-                    value={form.keywords}
+                    name="search_string"
+                    value={form.search_string}
                     onChange={handleChange}
                 />
 
