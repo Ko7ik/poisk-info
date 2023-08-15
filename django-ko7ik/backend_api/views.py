@@ -12,24 +12,23 @@ def index(request):
     return render(request, 'backend_api/index.html')
 
 
-# ------------ SearchDATA запросы ------------
-
-class SearchDataList(generics.ListCreateAPIView):
-    queryset = SearchData.objects.all()
-    serializer_class = SearchDataSerializer
-    permission_classes = (IsAuthenticated, )
-
-
-class SearchDataUpdate(generics.RetrieveUpdateAPIView):
-    queryset = SearchData.objects.all()
-    serializer_class = SearchDataSerializer
-    permission_classes = (IsAuthenticated, )
+# ------------ Task запросы ------------
+class TaskList(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
 
 
-class SearchDataDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SearchData.objects.all()
-    serializer_class = SearchDataSerializer
-    permission_classes = (IsAuthenticated, )
+class TaskUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
+
+
+class TaskDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
 
 
 # ------------ FoundDATA запросы ------------
@@ -37,16 +36,16 @@ class SearchDataDestroy(generics.RetrieveUpdateDestroyAPIView):
 class FoundDataList(generics.ListCreateAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
 
 
 class FoundDataUpdate(generics.RetrieveUpdateAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
 
 
 class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )

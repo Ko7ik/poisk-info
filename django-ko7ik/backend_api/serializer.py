@@ -2,9 +2,9 @@ from rest_framework import serializers
 from .models import *
 
 
-class SearchDataSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SearchData
+        model = Task
         fields = "__all__"
 
 
