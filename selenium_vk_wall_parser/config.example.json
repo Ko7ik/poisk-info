@@ -7,6 +7,10 @@
     "urls" : {
       "feed" : "https://vk.com/gabestore",
       "login" : "https://vk.com/login"
+    },
+    "task" : {
+      "id_last_post" : 938933991654215,
+      "text" : "выйдет придёт мусора говно зомби-апокалипсисе"
     }
   }
 }
