@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
+import requests
 
 
 class VkDriverTools:
@@ -17,6 +18,7 @@ class VkDriverTools:
         options = webdriver.ChromeOptions()
         self.driver = webdriver.Chrome(service=service, options=options)
         # self.driver = webdriver.Chrome(config['paths']['chromedriver'])
+        self.id_task = int(config['vk']['task']['id_task'])
         self.vk_login_url = config['vk']['urls']['login']
         self.vk_feed_url = config['vk']['urls']['feed']
         self.vk_login = config['vk']['auth']['login']
@@ -25,6 +27,23 @@ class VkDriverTools:
         self.vk_text_search = config['vk']['task']['text']
         result = ''.join(filter(lambda x: x not in string.punctuation, self.vk_text_search))
         self.vk_text_search = result.split()
+
+    def send_user_info_to_server(self, data):
+        # data =  {
+        #     "id_task": 1,
+        #     "date_post": "421412",
+        #     "img": "",
+        #     "found_text": "412412",
+        #     "id_post": "124124",
+        #     "link": "https://vk.com/wall{id}"
+        # }
+        url = 'http://192.168.0.17:8000/found_data/'
+        response = requests.post(url, json=data)
+
+        if response.status_code == 201:
+            print('Данные успешно отправлены на сервер')
+        else:
+            print('Ошибка при отправке данных на сервер')
 
     def get_driver(self):
         return self.driver
@@ -87,21 +106,23 @@ class VkDriverTools:
                     id_str = str(id)
                     # передача для создания итогого файла
                     data = {
-                        "time": times,
-                        "image": image,
-                        "text": text,
-                        "id": id_str,
+                        "id_task": self.id_task,
+                        "date_post": times,
+                        "img": image,
+                        "found_text": text,
+                        "id_post": id_str,
                         "link": f"https://vk.com/wall{id}"
                     }
+                    self.send_user_info_to_server(data)
+                    time.sleep(3)
                     existing_data.append(data)
 
                 except NoSuchElementException:
                     pass
 
-            if len(existing_data) >= 25:
+            if len(existing_data) >= 2:
                 break
 
-        return existing_data
 
     @property
     def get_feed(self):  # функция непосредственно парсера стены группы
@@ -177,12 +198,15 @@ class VkDriverTools:
 
                         # передача для создания итогого файла
                         data = {
-                            "time": times,
-                            "image": image,
-                            "text": text,
-                            "id": id_str,
+                            "id_task": self.id_task,
+                            "date_post": times,
+                            "img": image,
+                            "found_text": text,
+                            "id_post": id_str,
                             "link": f"https://vk.com/wall{id}"
                         }
+                        self.send_user_info_to_server(data)
+                        time.sleep(3)
                         existing_data.append(data)
 
                 except NoSuchElementException:

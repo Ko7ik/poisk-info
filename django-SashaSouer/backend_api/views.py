@@ -1,44 +1,16 @@
-import json
-
-from django.http import JsonResponse
 from rest_framework import generics
-from .serializer import *
-from django.shortcuts import render
 from rest_framework.views import APIView
+from .serializer import *
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
+from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from django.http import JsonResponse
 
 
 # ------------ Главная страница ------------
 
 def index(request):
     return render(request, 'backend_api/index.html')
-
-
-def serialize_and_save_to_json(request):
-    vk_parser_data = VkParserData.objects.all()
-    # task_data = SocialNetwork.objects.all()
-
-    serialized_vk_parser_data = VkParserDataSerializer(vk_parser_data, many=True).data
-    url_group = TaskUrlGroupSerializer(vk_parser_data).data
-
-    data_for_json = {
-      "vk" : {
-        "auth" : serialized_vk_parser_data,
-        "urls" : {
-          "feed" : url_group,
-          "login" : "https://vk.com/login"
-        },
-        "task" : {
-          "id_last_post" : 938933991654215,
-          "text" : "test-text"
-        }
-      }
-    }
-    with open('config.example.json', 'w') as json_file:
-        json.dump(data_for_json, json_file, indent=4)
-    return JsonResponse({'message': 'Data serialized and saved to JSON file.'}, status=200)
 
 
 # ------------ Task запросы ------------
@@ -78,3 +50,49 @@ class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
     # permission_classes = (IsAuthenticated, )
+
+# def parser_view(request):
+#      if request.method == 'POST':
+#             # Получение данных из запроса
+#             data = request.POST.get('data')
+#
+#             # Обработка данных или сохранение в базу данных
+#
+#             # Возвращение JSON-ответа
+#             return JsonResponse({'status': 'success'})
+
+def serialize_and_save_to_json(request):
+    items = VkParserData.objects.all()
+    item = Task.objects.all()
+    serializers_URL = URl(item, many=True).data
+    serializers_LastPost = LastPost(item, many=True).data
+    serializers_Search = Search(item, many=True).data
+    serialized_login = Login(items, many=True).data
+    serialized_password = Password(items, many=True).data
+    serialized_id_task = TaskId(items, many=True).data
+
+    data_for_json = {
+      "vk" : {
+        "auth" :
+            {
+                "login": serialized_login[0]['login'],
+                "password":serialized_password[0]['password']
+            },
+        "urls" : {
+          "feed" : serializers_URL[0]['url_group'],
+          "login" : "https://vk.com/login"
+        },
+        "task" : {
+            "id_last_post" : serializers_LastPost[0]['id_last_post'],
+            "text" : serializers_Search[0]['search_text'],
+            "id_task": serialized_id_task[0]['id']
+        }
+      }
+    }
+
+    with open('config.example.json', 'w',encoding='utf-8') as json_file:
+        json.dump(data_for_json, json_file, indent=4,ensure_ascii=False)
+
+    return JsonResponse(data_for_json, status=200)
+
+    # {'message': 'Data serialized and saved to JSON file.'}

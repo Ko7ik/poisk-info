@@ -1,17 +1,17 @@
 {
     "vk": {
-        "auth": [
-            {
-                "login": "89672549404"
-            }
-        ],
+        "auth": {
+            "login": "+79957880517",
+            "password": "1234qwertyQQWW"
+        },
         "urls": {
-            "feed": {},
+            "feed": "https://vk.com/yaroslavllive",
             "login": "https://vk.com/login"
         },
         "task": {
-            "id_last_post": 938933991654215,
-            "text": "test-text"
+            "id_last_post": "938933991654215",
+            "text": "Брагино автобус",
+            "id_task": 1
         }
     }
 }

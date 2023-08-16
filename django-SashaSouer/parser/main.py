@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from parser.src.JsonTools import JsonTools
-from parser.src.VkDriverTools import VkDriverTools
-from datetime import datetime
+from src.VkDriverTools import VkDriverTools
+import requests
+
+
+def get_data_from_server():
+    url = 'http://192.168.0.17:8000/serialize_and_save_to_json/'  # Замените на адрес вашего представления
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print('Ошибка при получении данных')
 
 if __name__ == '__main__':
-    jsonTools = JsonTools() # создание объекта
-    config = jsonTools.parse('config.example.json') # считывание пришедшего JSON файла
-    vkDriverTools = VkDriverTools(config) # разбиение данных из JSON файла по переменым
+    # config = jsonTools.parse('parser/config.example.json') # считывание пришедшего JSON файла
+    vkDriverTools = VkDriverTools(get_data_from_server()) # разбиение данных из JSON файла по переменым
     vkDriverTools.login() # Авторизация
-    #post_start = vkDriverTools.get_start
-    #JsonTools.save(post_start)  # Сохранение постов в JSON
-    posts = vkDriverTools.get_feed # Получение постов
-    JsonTools.save(posts)  # Сохранение постов в JSON
+    vkDriverTools.get_feed()
+
     vkDriverTools.driver.close() # Закрытие бота
