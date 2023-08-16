@@ -16,15 +16,24 @@ class VkParserData(models.Model):
     login = models.CharField(verbose_name="Логин")
     password = models.CharField(verbose_name="Пароль")
 
+    def __str__(self):
+        return self.login
+
 
 class StatusTask(models.Model):
     """Таблица для статусов тасков"""
     status = models.CharField(verbose_name="Статус таска")
 
+    def __str__(self):
+        return self.status
+
 
 class SocialNetwork(models.Model):
     """Таблица для выбора соцсети"""
     name = models.CharField(verbose_name="Название соцсети")
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -34,9 +43,10 @@ class Task(models.Model):
     search_text = models.CharField(verbose_name="Искомый текст")
     date = models.DateTimeField(verbose_name="Дата создания")
     vk_parser_data_id = models.ForeignKey(VkParserData, on_delete=models.CASCADE, verbose_name="Данные для парсера")
-    url_group = models.URLField(verbose_name="URL Группы")
+    url_group = models.CharField(verbose_name="URL Группы")
     status = models.ForeignKey(StatusTask, on_delete=models.CASCADE, verbose_name="Статус таска")
     numbers_of_posts = models.IntegerField(default=0, verbose_name="Количество постов")
+    id_last_post = models.CharField(verbose_name="ID последнего поста")
 
     def __str__(self):
         return self.url_group
@@ -49,10 +59,13 @@ class Task(models.Model):
 class FoundData(models.Model):
     """Таблица для найденных по таскам данных"""
     id_task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name="Таск")
-    id_post = models.IntegerField(verbose_name="ID поста")
-    date_post = models.DateTimeField(verbose_name="Дата публикации")
-    img = models.ImageField(upload_to='img/', null=True, verbose_name="Изображение")
+    id_post = models.CharField(verbose_name="ID поста")
+    date_post = models.CharField(verbose_name="Дата публикации")
+    img = models.TextField(null=True, verbose_name="Изображение")
     found_text = models.TextField(verbose_name="Найденный текст")
+
+    def __str__(self):
+        return self.id_task
 
 
 # class SearchData(models.Model):

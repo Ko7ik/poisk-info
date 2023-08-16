@@ -8,7 +8,7 @@ import json
 import webbrowser
 
 # Запуск сервера Django в отдельном процессе
-server_process = subprocess.Popen(['python', 'manage.py', 'runserver', '192.168.0.17:8000'])
+server_process = subprocess.Popen(['python', 'manage.py', 'runserver', '192.168.0.189:8000'])
 
 # Ваш скрипт
 your_script_path = 'parser/main.py'
@@ -16,9 +16,9 @@ subprocess.call(['python', your_script_path])
 
 # Подключение к базе данных
 conn = psycopg2.connect(
-    dbname='proba',
+    dbname='poiskinfodb1',
     user='postgres',
-    password='12345678',
+    password='ko7ik',
     host='localhost',  # Укажите хост
     port='5432'  # Укажите порт
 )
