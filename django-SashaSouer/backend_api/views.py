@@ -1,34 +1,51 @@
+from rest_framework import generics
 from rest_framework.views import APIView
 from .serializer import *
 from rest_framework.response import Response
-from django.http import HttpResponse
+from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
+
+# ------------ Главная страница ------------
 
 def index(request):
-    return HttpResponse("<h1>MAIN PAGE</h1>")
+    return render(request, 'backend_api/index.html')
 
 
-class FoundDataView(APIView):
-    def get(self, request):
-        queryset = FoundData.objects.all()
-        serializer = FoundDataSerializer(instance=queryset, many=True)
-        return Response({'data': serializer.data})
-
-    def post(self, request):
-        serializer = FoundDataSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+# ------------ Task запросы ------------
+class TaskList(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
 
 
-class SearchDataView(APIView):
-    def get(self, request):
-        queryset = SearchData.objects.all()
-        serializer = SearchDataSerializer(instance=queryset, many=True)
-        return Response({'data': serializer.data})
+class TaskUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
 
-    def post(self, request):
-        serializer = SearchDataSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+
+class TaskDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    # permission_classes = (IsAuthenticated, )
+
+
+# ------------ FoundDATA запросы ------------
+
+class FoundDataList(generics.ListCreateAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
+    # permission_classes = (IsAuthenticated, )
+
+
+class FoundDataUpdate(generics.RetrieveUpdateAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
+    # permission_classes = (IsAuthenticated, )
+
+
+class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoundData.objects.all()
+    serializer_class = FoundDataSerializer
+    # permission_classes = (IsAuthenticated, )

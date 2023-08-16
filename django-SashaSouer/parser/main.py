@@ -4,17 +4,13 @@ from src.JsonTools import JsonTools
 from src.VkDriverTools import VkDriverTools
 from datetime import datetime
 
-
-def formatPostToText(post):
-    template = "\n[{0}] Новый пост!\nСсылка - {1}\nТекст - {2}\nСсылка на пикчу - {3}\nID - {4}"
-    return template.format(post['time'], post['link'], post['text'] if len(post['text']) else "нет", post['image'] if len(post['image']) else "нет", post['id'])
-
 if __name__ == '__main__':
-    jsonTools = JsonTools()
-    config = jsonTools.parse('config.example.json')
-    vkDriverTools = VkDriverTools(config)
-    vkDriverTools.login()
-
-    posts = vkDriverTools.get_feed
-    JsonTools.save(posts)
-    vkDriverTools.driver.close()
+    jsonTools = JsonTools() # создание объекта
+    config = jsonTools.parse('parser/config.example.json') # считывание пришедшего JSON файла
+    vkDriverTools = VkDriverTools(config) # разбиение данных из JSON файла по переменым
+    vkDriverTools.login() # Авторизация
+    post_start = vkDriverTools.get_start
+    JsonTools.save(post_start)  # Сохранение постов в JSON
+    #posts = vkDriverTools.get_feed # Получение постов
+    #JsonTools.save(posts)  # Сохранение постов в JSON
+    vkDriverTools.driver.close() # Закрытие бота

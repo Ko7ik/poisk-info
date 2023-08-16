@@ -5,8 +5,12 @@
       "password" : "1234qwertyQQWW"
     },
     "urls" : {
-      "feed" : "https://vk.com/dol_mg",
+      "feed" : "https://vk.com/yaroslavllive",
       "login" : "https://vk.com/login"
+    },
+    "task" : {
+      "id_last_post" : 938933991654215,
+      "text" : "выйдет придёт мусора говно зомби-апокалипсисе"
     }
   }
 }
