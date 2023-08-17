@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.http import JsonResponse
 
 
-# ------------ Главная страница ------------
+# ------------ Главная страница ------------ #
 
 def index(request):
     return render(request, 'backend_api/index.html')
