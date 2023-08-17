@@ -5,7 +5,7 @@ import requests
 
 
 def get_data_from_server():
-    url = 'http://192.168.0.17:8000/serialize_and_save_to_json/'  # Замените на адрес вашего представления
+    url = 'http://192.168.0.189:8000/serialize_and_save_to_json/'  # Замените на адрес вашего представления
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()

@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'parser.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parser',
+        'NAME': 'poiskinfodb',
         'USER': 'postgres',
         'PASSWORD': '12345678',
         'HOST': 'localhost'
