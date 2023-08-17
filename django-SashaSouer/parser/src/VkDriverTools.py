@@ -37,7 +37,7 @@ class VkDriverTools:
         #     "id_post": "124124",
         #     "link": "https://vk.com/wall{id}"
         # }
-        url = 'http://192.168.0.17:8000/found_data/'
+        url = 'http://192.168.0.189:8000/found_data/'
         response = requests.post(url, json=data)
 
         if response.status_code == 201:
