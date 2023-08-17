@@ -24,7 +24,7 @@ const Register = () => {
 
         setForm(iniState)
         
-        const response = await axios.post('http://192.168.0.189:8000/auth/users/', form)
+        const response = await axios.post('http://192.168.0.17:8000/auth/users/', form)
         console.log(response)
 
         

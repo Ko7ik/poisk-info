@@ -159,11 +159,19 @@ input[type=file]::file-selector-button {
     flex-grow: 2;
     justify-content: space-between;
     align-items: center;
+    align-content: space-between;
     margin-inline:2rem;
 }
+
+.content {
+    scroll-behavior: smooth;
+    margin-top: 2rem;
+
+}
+
 .ContentBlock{
     display: flex;
-    flex: 0 0 100%;
+    flex: 1 1 100%;
     gap: 2rem;
     flex-direction: column;
     justify-content: space-between;

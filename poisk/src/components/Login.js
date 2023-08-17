@@ -2,13 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+
+
 const Login = () => {
 
     const iniState = {
         username: '',
         password: '',
     }
-    
+
     const [form, setForm] = React.useState(iniState)
 
     const handleChange = (event) => {
@@ -22,10 +24,12 @@ const Login = () => {
 
         setForm(iniState)
         
-        const response = await axios.post('http://192.168.0.189:8000/auth/token/login', form)
+        const response = await axios.post('http://192.168.0.17:8000/auth/token/login', form)
         console.log(response)
-
+        localStorage.setItem('token', response.data.auth_token);
         
+        
+
     }
 
     return (
@@ -50,6 +54,7 @@ const Login = () => {
                         onChange={handleChange}
                     />
                     <button type='submit'>Войти</button>
+
                 </form>
                 <Link to="/register">
                         <p>Регистрация</p>
@@ -58,5 +63,6 @@ const Login = () => {
         </div>
     )
 }
+
 
 export default Login

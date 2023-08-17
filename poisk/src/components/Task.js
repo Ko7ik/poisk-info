@@ -1,11 +1,11 @@
 import React from "react";
 import axios from "axios";
 
-const apiUrl = 'http://192.168.0.189:8000/found_data/';
+const apiUrl = 'http://192.168.0.17:8000/found_data/';
 
-function MonitorFC() {
+function Tasks() {
 
-    const [MonitorState, setMonitorState] = React.useState([]);
+    const [TaskState, setTaskState] = React.useState([]);
     
     React.useEffect(() => {
         
@@ -41,4 +41,4 @@ function MonitorFC() {
 }
 
 
-export default MonitorFC
+export default Tasks

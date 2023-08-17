@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const apiUrl = 'http://192.168.0.189:8000/found_data/';
+const apiUrl = 'http://192.168.0.17:8000/found_data/';
 
 function MonitorFC() {
 
@@ -9,14 +9,16 @@ function MonitorFC() {
     
     React.useEffect(() => {
         
+        
         axios
-            .get(apiUrl)
+            .get(apiUrl, { headers: { Authorization:localStorage.getItem('token') }})
             .then((data => {
                 setMonitorState (data.data)
             }))
+            .then(response=> console.log(response))
 
-      .catch((err) => {
-        console.log(err)});
+            .catch((err) => {
+                console.log(err)});
     }, []);
   
 
@@ -25,16 +27,17 @@ function MonitorFC() {
     const content = MonitorState.map((monitor) => 
         <div key={monitor.id} className="ContentBlock">
             <h3>Публикация №{monitor.id_post}</h3>
-            <img src={monitor.image}/>
-            <h3>Время публикации: {monitor.time}</h3>
-            <p>Текст:{monitor.text}</p>
+            <p>{monitor.img}</p>
+            <h3>Время публикации: {monitor.date_post}</h3>
+            <p>Текст: {monitor.found_text}</p>
         </div> 
     )
 
   return (
         <div className="Main2">
-           <div>
-                {content} 
+           <div className="content">
+                
+                {content}
             </div>
         </div>
     );
