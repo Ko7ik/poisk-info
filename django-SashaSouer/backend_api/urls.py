@@ -13,6 +13,6 @@ urlpatterns = [
     path('found_data/', FoundDataList.as_view()),
     path('found_data_update/<int:pk>/', FoundDataUpdate.as_view()),
     path('found_data_delete/<int:pk>/', FoundDataDestroy.as_view()),
-
+    path('')
 ]
 

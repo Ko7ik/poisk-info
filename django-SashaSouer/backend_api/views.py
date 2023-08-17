@@ -7,11 +7,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.http import JsonResponse
 
 
-<<<<<<< Updated upstream
 # ------------ Главная страница ------------ #
 
-=======
->>>>>>> Stashed changes
 def index(request):
     return render(request, 'backend_api/index.html')
 
@@ -54,17 +51,6 @@ class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
     # permission_classes = (IsAuthenticated, )
-<<<<<<< Updated upstream
-
-# def parser_view(request):
-#      if request.method == 'POST':
-#             # Получение данных из запроса
-#             data = request.POST.get('data')
-#
-#             # Обработка данных или сохранение в базу данных
-#
-#             # Возвращение JSON-ответа
-#             return JsonResponse({'status': 'success'})
 
 def serialize_and_save_to_json(request):
     VkObject = VkParserData.objects.all()
@@ -101,5 +87,4 @@ def serialize_and_save_to_json(request):
     return JsonResponse(data_for_json, status=200)
 
     # {'message': 'Data serialized and saved to JSON file.'}
-=======
->>>>>>> Stashed changes
+
