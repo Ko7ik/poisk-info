@@ -1,41 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+//import axios from 'axios'
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from "../store";
 
 
-
-const Login = () => {
-
-    const iniState = {
-        username: '',
-        password: '',
-    }
-
-    const [form, setForm] = React.useState(iniState)
+const Login = observer(() => {
+    const { currentUser, } = useRootStore()
+    const [form, setForm] = React.useState()
 
     const handleChange = (event) => {
-      
+
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
+    const handleSubmit = async (form) => {
         console.log('FORM: ', form)
-
-        setForm(iniState)
-        
-        const response = await axios.post('http://192.168.0.17:8000/auth/token/login', form)
-        console.log(response)
-        localStorage.setItem('token', response.data.auth_token);
-        
-        
+        await currentUser.login(form.username, form.password)
+        console.log('login ')
 
     }
 
+
     return (
-        <div className="Main"> 
+        <div className="Main">
             <div className='login'>
-                <form onSubmit={handleSubmit}>
+                <form /*onSubmit={handleSubmit}*/>
+                    <h2>{currentUser.user.username}</h2>
                     <h2>Вход</h2>
                     <input
                         type="text"
@@ -46,23 +37,24 @@ const Login = () => {
                         onChange={handleChange}
                     />
 
-                    <input 
-                        type="password" 
+                    <input
+                        type="password"
                         name="password"
-                        placeholder='Пароль'  
-                        required 
+                        placeholder='Пароль'
+                        required
                         onChange={handleChange}
                     />
-                    <button type='submit'>Войти</button>
+                    <button type='button' onClick={async () => handleSubmit(form)}>Войти</button>
 
                 </form>
                 <Link to="/register">
-                        <p>Регистрация</p>
+                    <p>Регистрация</p>
                 </Link>
             </div>
         </div>
     )
-}
+
+})
 
 
 export default Login
