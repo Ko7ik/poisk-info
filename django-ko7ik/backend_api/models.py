@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.contrib.postgres.fields import ArrayField
 
 
 class UserProfile(models.Model):
@@ -37,6 +38,7 @@ class Task(models.Model):
     url_group = models.URLField(verbose_name="URL Группы")
     status = models.ForeignKey(StatusTask, on_delete=models.CASCADE, verbose_name="Статус таска")
     numbers_of_posts = models.IntegerField(default=0, verbose_name="Количество постов")
+    id_last_post = models.CharField(verbose_name="id последнего поста")
 
     def __str__(self):
         return self.url_group
@@ -49,11 +51,11 @@ class Task(models.Model):
 class FoundData(models.Model):
     """Таблица для найденных по таскам данных"""
     id_task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name="Таск")
-    id_post = models.IntegerField(verbose_name="ID поста")
-    date_post = models.DateTimeField(verbose_name="Дата публикации")
-    img = models.ImageField(upload_to='img/', null=True, verbose_name="Изображение")
+    id_post = models.CharField(verbose_name="ID поста")
+    date_post = models.CharField(verbose_name="Дата публикации")
+    img = ArrayField(models.CharField(verbose_name="Фотография"), blank=True, null=True)
     found_text = models.TextField(verbose_name="Найденный текст")
-
+    link = models.CharField(verbose_name="Ссылка на публикацию")
 
 # class SearchData(models.Model):
 #     """Таблица с данными для поиска"""
