@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-import requests
+from parser.server_request import send_user_info_to_server
 
 
 class VkDriverTools:
@@ -28,6 +28,7 @@ class VkDriverTools:
         result = ''.join(filter(lambda x: x not in string.punctuation, self.vk_text_search))
         self.vk_text_search = result.split()
 
+<<<<<<< Updated upstream
     def send_user_info_to_server(self, data):
         url = 'http://192.168.0.17:8000/found_data/'
         response = requests.post(url, json=data)
@@ -36,6 +37,8 @@ class VkDriverTools:
             print('Данные успешно отправлены на сервер')
         else:
             print('Ошибка при отправке данных на сервер')
+=======
+>>>>>>> Stashed changes
 
     def get_driver(self):
         return self.driver
@@ -105,7 +108,7 @@ class VkDriverTools:
                         "id_post": id_str,
                         "link": f"https://vk.com/wall{id}"
                     }
-                    self.send_user_info_to_server(data)
+                    send_user_info_to_server(data)
                     time.sleep(3)
                     existing_data.append(data)
 
@@ -197,7 +200,7 @@ class VkDriverTools:
                             "id_post": id_str,
                             "link": f"https://vk.com/wall{id}"
                         }
-                        self.send_user_info_to_server(data)
+                        send_user_info_to_server(data)
                         time.sleep(3)
                         existing_data.append(data)
 
@@ -220,9 +223,9 @@ class VkDriverTools:
 
         # поиск кнопки войти по паролю, если это необходимо
         try:
-            slize = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.vkc__PureButton__button.vkc__Link__link.vkc__Link__primary'
-                                             '.vkc__Bottom__switchToPassword').click()
+            self.driver.find_element(By.CSS_SELECTOR,
+                                     '.vkc__PureButton__button.vkc__Link__link.vkc__Link__primary'
+                                     '.vkc__Bottom__switchToPassword').click()
             time.sleep(5)
         except NoSuchElementException as e:
             pass

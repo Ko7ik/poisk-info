@@ -13,6 +13,6 @@ urlpatterns = [
     path('found_data/', FoundDataList.as_view()),
     path('found_data_update/<int:pk>/', FoundDataUpdate.as_view()),
     path('found_data_delete/<int:pk>/', FoundDataDestroy.as_view()),
-    path('serialize_and_save_to_json/', views.serialize_and_save_to_json, name='serialize_and_save_to_json'),
+
 ]
 

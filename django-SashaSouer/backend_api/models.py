@@ -17,15 +17,24 @@ class VkParserData(models.Model):
     login = models.CharField(verbose_name="Логин")
     password = models.CharField(verbose_name="Пароль")
 
+    def __str__(self):
+        return self.login
+
 
 class StatusTask(models.Model):
     """Таблица для статусов тасков"""
     status = models.CharField(verbose_name="Статус таска")
 
+    def __str__(self):
+        return self.status
+
 
 class SocialNetwork(models.Model):
     """Таблица для выбора соцсети"""
     name = models.CharField(verbose_name="Название соцсети")
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -44,7 +53,7 @@ class Task(models.Model):
         return self.url_group
 
     def update_numbers_of_posts(self):
-        self.numbers_of_posts = self.posts_set.count()
+        self.numbers_of_posts = self.FooundData.count()
         self.save()
 
 
@@ -57,30 +66,5 @@ class FoundData(models.Model):
     found_text = models.TextField(verbose_name="Найденный текст")
     link = models.CharField(verbose_name="Ссылка на публикацию")
 
-# class SearchData(models.Model):
-#     """Таблица с данными для поиска"""
-#     url_group = models.URLField(max_length=200, null=False, blank=True, verbose_name="URL Группы")
-#     search_string = models.CharField(max_length=200, null=False, blank=True, verbose_name="Искомая строка")
-#
-#     def __str__(self):
-#         return f'{self.url_group}'
-#
-#     class Meta:
-#         verbose_name = 'Данные для поиска'
-#         verbose_name_plural = 'Данные для поиска'
-#
-#
-# class FoundData(models.Model):
-#     """Таблица с данными для вывода"""
-#     time = models.CharField(max_length=50, blank=True, verbose_name="Дата и время публикации")
-#     image = models.FileField(upload_to='img/', verbose_name="Изображения")
-#     text = models.TextField(null=True, verbose_name='Найденные данные')
-#     id_post = models.CharField(max_length=20, blank=True, verbose_name="ID поста")
-#     link = models.ForeignKey('SearchData', on_delete=models.PROTECT, null=True, verbose_name="URL Группы")
-#
-#     def __str__(self):
-#         return f'{self.link}'
-#
-#     class Meta:
-#         verbose_name = 'Результат поиска'
-#         verbose_name_plural = 'Результаты поиска'
+    def __str__(self):
+        return self.id_task

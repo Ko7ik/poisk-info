@@ -7,17 +7,21 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.http import JsonResponse
 
 
+<<<<<<< Updated upstream
 # ------------ Главная страница ------------ #
 
+=======
+>>>>>>> Stashed changes
 def index(request):
     return render(request, 'backend_api/index.html')
+
 
 
 # ------------ Task запросы ------------
 class TaskList(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
 
 
 class TaskUpdate(generics.RetrieveUpdateAPIView):
@@ -50,6 +54,7 @@ class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
     # permission_classes = (IsAuthenticated, )
+<<<<<<< Updated upstream
 
 # def parser_view(request):
 #      if request.method == 'POST':
@@ -96,3 +101,5 @@ def serialize_and_save_to_json(request):
     return JsonResponse(data_for_json, status=200)
 
     # {'message': 'Data serialized and saved to JSON file.'}
+=======
+>>>>>>> Stashed changes

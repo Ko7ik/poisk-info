@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import *
-import json
-
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -14,10 +12,15 @@ class FoundDataSerializer(serializers.ModelSerializer):
         model = FoundData
         fields = "__all__"
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 class VKParserSerializers(serializers.ModelSerializer):
     class Meta:
         model = VkParserData
         fields = "__all__"
+<<<<<<< Updated upstream
 
 
 
@@ -25,3 +28,5 @@ class VKParserSerializers(serializers.ModelSerializer):
 
 
 
+=======
+>>>>>>> Stashed changes

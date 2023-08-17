@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proba',
+        'NAME': 'poiskinfodb',
         'USER': 'postgres',
         'PASSWORD': '12345678',
         'HOST': 'localhost'
