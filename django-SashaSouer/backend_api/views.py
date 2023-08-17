@@ -7,18 +7,17 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.http import JsonResponse
 
 
-# ------------ Главная страница ------------ #
+# ------------ Главная страница ------------
 
 def index(request):
     return render(request, 'backend_api/index.html')
-
 
 
 # ------------ Task запросы ------------
 class TaskList(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
 
 
 class TaskUpdate(generics.RetrieveUpdateAPIView):
@@ -52,39 +51,62 @@ class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FoundDataSerializer
     # permission_classes = (IsAuthenticated, )
 
+# def parser_view(request):
+#      if request.method == 'POST':
+#             # Получение данных из запроса
+#             data = request.POST.get('data')
+#
+#             # Обработка данных или сохранение в базу данных
+#
+#             # Возвращение JSON-ответа
+#             return JsonResponse({'status': 'success'})
+
 def serialize_and_save_to_json(request):
-    VkObject = VkParserData.objects.all()
-    TaskObject = Task.objects.all()
-    serializers_URL = TaskSerializer(TaskObject, many=True).data
-    serializers_LastPost = TaskSerializer(TaskObject, many=True).data
-    serializers_Search = TaskSerializer(TaskObject, many=True).data
-    serialized_login = VKParserSerializers(VkObject, many=True).data
-    serialized_password = VKParserSerializers(VkObject, many=True).data
-    serialized_id_task = TaskSerializer(TaskObject, many=True).data
-
-    data_for_json = {
-      "vk" : {
-        "auth" :
-            {
-                "login": serialized_login[0]['login'],
-                "password":serialized_password[0]['password']
+    serialized_vk_data = VKParserSerializers(VkParserData.objects.all(), many=True).data
+    serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
+    data_for_json_array = []
+    for i in range(0,3):
+        data_for_json = {
+          "vk" : {
+            "auth" :
+                {
+                    "login": serialized_vk_data[0]['login'],
+                    "password":serialized_vk_data[0]['password']
+                },
+            "urls" : {
+              "feed" : serialized_task_data[0]['url_group'],
+              "login" : "https://vk.com/login"
             },
-        "urls" : {
-          "feed" : serializers_URL[0]['url_group'],
-          "login" : "https://vk.com/login"
-        },
-        "task" : {
-            "id_last_post" : serializers_LastPost[0]['id_last_post'],
-            "text" : serializers_Search[0]['search_text'],
-            "id_task": serialized_id_task[0]['id']
+            "task" : {
+                "id_last_post" : serialized_task_data[0]['id_last_post'],
+                "text" : serialized_task_data[0]['search_text'],
+                "id_task": serialized_task_data[0]['id']
+            }
+          }
         }
-      }
-    }
+        data_for_json_array.append(data_for_json)
+        data_for_json = {
+            "vk": {
+                "auth":
+                    {
+                        "login": serialized_vk_data[0]['login'],
+                        "password": serialized_vk_data[0]['password']
+                    },
+                "urls": {
+                    "feed": serialized_task_data[2]['url_group'],
+                    "login": "https://vk.com/login"
+                },
+                "task": {
+                    "id_last_post": serialized_task_data[2]['id_last_post'],
+                    "text": serialized_task_data[2]['search_text'],
+                    "id_task": serialized_task_data[2]['id']
+                }
+            }
+        }
+        data_for_json_array.append(data_for_json)
+    return JsonResponse(data_for_json_array, status=200, safe=False)
 
-    with open('config.example.json', 'w',encoding='utf-8') as json_file:
-        json.dump(data_for_json, json_file, indent=4,ensure_ascii=False)
 
-    return JsonResponse(data_for_json, status=200)
+
 
     # {'message': 'Data serialized and saved to JSON file.'}
-
