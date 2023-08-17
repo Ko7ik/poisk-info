@@ -29,15 +29,7 @@ class VkDriverTools:
         self.vk_text_search = result.split()
 
     def send_user_info_to_server(self, data):
-        # data =  {
-        #     "id_task": 1,
-        #     "date_post": "421412",
-        #     "img": "",
-        #     "found_text": "412412",
-        #     "id_post": "124124",
-        #     "link": "https://vk.com/wall{id}"
-        # }
-        url = 'http://192.168.0.189:8000/found_data/'
+        url = 'http://192.168.0.17:8000/found_data/'
         response = requests.post(url, json=data)
 
         if response.status_code == 201:

@@ -62,14 +62,14 @@ class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
 #             return JsonResponse({'status': 'success'})
 
 def serialize_and_save_to_json(request):
-    items = VkParserData.objects.all()
-    item = Task.objects.all()
-    serializers_URL = URl(item, many=True).data
-    serializers_LastPost = LastPost(item, many=True).data
-    serializers_Search = Search(item, many=True).data
-    serialized_login = Login(items, many=True).data
-    serialized_password = Password(items, many=True).data
-    serialized_id_task = TaskId(items, many=True).data
+    VkObject = VkParserData.objects.all()
+    TaskObject = Task.objects.all()
+    serializers_URL = TaskSerializer(TaskObject, many=True).data
+    serializers_LastPost = TaskSerializer(TaskObject, many=True).data
+    serializers_Search = TaskSerializer(TaskObject, many=True).data
+    serialized_login = VKParserSerializers(VkObject, many=True).data
+    serialized_password = VKParserSerializers(VkObject, many=True).data
+    serialized_id_task = TaskSerializer(TaskObject, many=True).data
 
     data_for_json = {
       "vk" : {
