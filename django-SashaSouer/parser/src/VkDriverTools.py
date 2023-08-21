@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import string
+
+import requests
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -8,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-from parser.server_request import send_user_info_to_server
+from parser.serverResponce import *
 
 
 class VkDriverTools:
@@ -28,23 +30,21 @@ class VkDriverTools:
         result = ''.join(filter(lambda x: x not in string.punctuation, self.vk_text_search))
         self.vk_text_search = result.split()
 
-<<<<<<< Updated upstream
     def send_user_info_to_server(self, data):
-        url = 'http://192.168.0.17:8000/found_data/'
+        url = 'http://192.168.0.189:8000/found_data/'
         response = requests.post(url, json=data)
 
         if response.status_code == 201:
             print('Данные успешно отправлены на сервер')
         else:
             print('Ошибка при отправке данных на сервер')
-=======
->>>>>>> Stashed changes
 
     def get_driver(self):
         return self.driver
 
     @property
     def get_start(self):  # функция непосредственно парсера стены группы
+        print("начал парсить")
         self.driver.get(self.vk_feed_url)  # переход на страницу таска
         time.sleep(2)
         existing_data = []
@@ -115,9 +115,8 @@ class VkDriverTools:
                 except NoSuchElementException:
                     pass
 
-            if len(existing_data) >= 2:
+            if len(existing_data) == 1:
                 break
-
 
     @property
     def get_feed(self):  # функция непосредственно парсера стены группы
@@ -190,7 +189,6 @@ class VkDriverTools:
                     text = post.find_element(By.CLASS_NAME, 'wall_post_text').text
                     id_str = str(id)
                     if find_matching_words_in_string(text, self.vk_text_search) == 1:
-
                         # передача для создания итогого файла
                         data = {
                             "id_task": self.id_task,
