@@ -16,7 +16,7 @@ def index(request):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = (IsAuthenticated,)  # Проверка аутентификации
+    # permission_classes = (IsAuthenticated,)  # Проверка аутентификации
 
 
 # Views для FoundData
@@ -24,7 +24,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 class FoundDataViewSet(viewsets.ModelViewSet):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    permission_classes = (IsAuthenticated,)  # Проверка аутентификации
+    # permission_classes = (IsAuthenticated,)  # Проверка аутентификации
 
 
 def create_json_response_to_parser(request):

@@ -204,7 +204,6 @@ class VkDriverTools:
 
                 except NoSuchElementException:
                     pass
-
             if flag == 1:
                 break
 

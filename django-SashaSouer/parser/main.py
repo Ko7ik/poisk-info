@@ -19,12 +19,12 @@ if __name__ == '__main__':
         vkDriverTools.login()  # Авторизация
         print("Авторизовался")
 
-        # if vkDriverTools.vk_last_id == 0:   # Проверка на обрабатывалась ли страница
-        #     vkDriverTools.get_start()
-        #     print("get_start")
-        # else:
-        #     vkDriverTools.get_feed()
-        #     print("get_feed")
+        if vkDriverTools.vk_last_id == 0:   # Проверка на обрабатывалась ли страница
+            print("get_start")
+            vkDriverTools.get_start()   # Запуск парсера на обработку с первой записи
+        else:
+            print("get_feed")
+            vkDriverTools.get_feed()   # Запуск парсера на обработку с последней найденной записи
 
         vkDriverTools.driver.close()   # Закрытие бота
         print("Бот закрылся")
