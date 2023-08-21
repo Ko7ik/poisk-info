@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
         vkDriverTools.driver.close()   # Закрытие бота
         print("Бот закрылся")
-        array.pop(0)
+        array.pop(0)   # Удаляем первый элемент в списке
         print("Первый элемент массива удалён")
     print("Элементы закончились")
