@@ -1,44 +1,40 @@
-import React from "react";
-import axios from "axios";
+// import React from 'react'
 
-const apiUrl = 'http://192.168.0.17:8000/found_data/';
+// import axios from 'axios'
 
-function Tasks() {
+// const apiUrl = 'http://192.168.0.17:8000/found_data/'
 
-    const [TaskState, setTaskState] = React.useState([]);
-    
-    React.useEffect(() => {
-        
-        axios
-            .get(apiUrl)
-            .then((data => {
-                setMonitorState (data.data)
-            }))
+// function Tasks() {
+//     const [TaskState, setTaskState] = React.useState([])
 
-      .catch((err) => {
-        console.log(err)});
-    }, []);
-  
+//     React.useEffect(() => {
+//         axios
+//             .get(apiUrl)
+//             .then((data) => {
+//                 setMonitorState(data.data)
+//             })
 
-    console.log (MonitorState)
- 
-    const content = MonitorState.map((monitor) => 
-        <div key={monitor.id} className="ContentBlock">
-            <h3>Публикация №{monitor.id_post}</h3>
-            <img src={monitor.image}/>
-            <h3>Время публикации: {monitor.time}</h3>
-            <p>Текст:{monitor.text}</p>
-        </div> 
-    )
+//             .catch((err) => {
+//                 console.log(err)
+//             })
+//     }, [])
 
-  return (
-        <div className="Main2">
-           <div>
-                {content} 
-            </div>
-        </div>
-    );
-}
+//     console.log(MonitorState)
 
+//     const content = MonitorState.map((monitor) => (
+//         <div key={monitor.id} className="ContentBlock">
+//             <h3>Публикация №{monitor.id_post}</h3>
+//             <img src={monitor.image} />
+//             <h3>Время публикации: {monitor.time}</h3>
+//             <p>Текст:{monitor.text}</p>
+//         </div>
+//     ))
 
-export default Tasks
+//     return (
+//         <div className="Main2">
+//             <div>{content}</div>
+//         </div>
+//     )
+// }
+
+// export default Tasks

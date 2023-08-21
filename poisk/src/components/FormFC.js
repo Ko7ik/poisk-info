@@ -27,12 +27,11 @@ export const FormFC = () => {
         //отчищаем форму
         setForm(iniState)
 
-        const response = await axios.post('http://192.168.0.17:8000/search_data/', form)
+        const response = await axios.post(
+            'http://192.168.0.17:8000/search_data/',
+            form,
+        )
         console.log(response)
-
-       
-
-        
     }
 
     return (

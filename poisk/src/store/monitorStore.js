@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+/* import { makeAutoObservable } from 'mobx'
 import axios from 'axios'
 
 export const monitorStore = makeAutoObservable({
@@ -38,3 +38,4 @@ export const monitorStore = makeAutoObservable({
     },
 
 })
+*/

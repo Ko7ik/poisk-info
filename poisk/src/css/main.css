@@ -60,14 +60,7 @@ form {
 .Main  form select,
 .Main  form textarea
 {
-    text-align: center;
-    font-family:'Roboto', sans-serif;
-    font-weight: 500;
-    border: 0;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    outline: none;
-    font-size: 15px;
+
     padding: 0.5rem;
 }
 
@@ -191,7 +184,7 @@ input[type=file]::file-selector-button {
     gap: 1rem;
 
 }
-
+/* 
 .login form h2 {
     margin-bottom: 2.5rem;
 }
@@ -209,4 +202,4 @@ input[type=file]::file-selector-button {
 .login p:hover {
     text-decoration: underline;
     transform: scale(1.1);
-}
+} */
