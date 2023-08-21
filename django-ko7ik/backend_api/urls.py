@@ -1,18 +1,18 @@
 from django.urls import path, include, re_path
 from . import views
+
 from backend_api.views import *
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register(r'task', TaskViewSet)
+router.register(r'found_data', FoundDataViewSet)
 
 urlpatterns = [
     path('', views.index),
+    path('', include(router.urls)),
     path('auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('api/v1/drf-auth/', include('rest_framework.urls')),
-    path('task/', TaskList.as_view()),
-    path('task_update/<int:pk>/', TaskUpdate.as_view()),
-    path('task_delete/<int:pk>/', TaskDelete.as_view()),
-    path('found_data/', FoundDataList.as_view()),
-    path('found_data_update/<int:pk>/', FoundDataUpdate.as_view()),
-    path('found_data_delete/<int:pk>/', FoundDataDestroy.as_view()),
-    path('serialize_and_save_to_json/', views.serialize_and_save_to_json, name='serialize_and_save_to_json'),
+    path('create_json_response_to_parser/', views.create_json_response_to_parser, name='serialize_and_save_to_json'),
 ]
-

@@ -8,8 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-import requests
-from parser.server_request import send_user_info_to_server
+from parser.serverResponce import *
 
 
 class VkDriverTools:

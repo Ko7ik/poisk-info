@@ -1,58 +1,33 @@
-from rest_framework import generics
-from rest_framework.views import APIView
+from rest_framework import generics, viewsets
 from .serializer import *
-from rest_framework.response import Response
 from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django.http import JsonResponse
 
 
-# ------------ Главная страница ------------
+# Главная страница
 
 def index(request):
     return render(request, 'backend_api/index.html')
 
 
-# ------------ Task запросы ------------
-class TaskList(generics.ListCreateAPIView):
+# Views для Task
+class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)  # Проверка аутентификации
 
 
-class TaskUpdate(generics.RetrieveUpdateAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
-    # permission_classes = (IsAuthenticated, )
+# Views для FoundData
 
-
-class TaskDelete(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
-    # permission_classes = (IsAuthenticated, )
-
-
-# ------------ FoundDATA запросы ------------
-
-class FoundDataList(generics.ListCreateAPIView):
+class FoundDataViewSet(viewsets.ModelViewSet):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)  # Проверка аутентификации
 
 
-class FoundDataUpdate(generics.RetrieveUpdateAPIView):
-    queryset = FoundData.objects.all()
-    serializer_class = FoundDataSerializer
-    # permission_classes = (IsAuthenticated, )
-
-
-class FoundDataDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = FoundData.objects.all()
-    serializer_class = FoundDataSerializer
-    # permission_classes = (IsAuthenticated, )
-
-
-def serialize_and_save_to_json(request):
+# Формируем JSON для запуска парсера
+def create_json_response_to_parser(request):
     serialized_vk_data = VKParserSerializers(VkParserData.objects.all(), many=True).data
     serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
     data_for_json = {
@@ -73,5 +48,4 @@ def serialize_and_save_to_json(request):
             }
         }
     }
-
     return JsonResponse(data_for_json, status=200, safe=False)
