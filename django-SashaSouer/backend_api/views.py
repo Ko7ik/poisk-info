@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework import generics
 from rest_framework.views import APIView
 from .serializer import *
@@ -65,7 +66,7 @@ def serialize_and_save_to_json(request):
     serialized_vk_data = VKParserSerializers(VkParserData.objects.all(), many=True).data
     serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
     data_for_json_array = []
-    for i in range(0,3):
+    for i in range(len(Task.objects.all())):
         data_for_json = {
           "vk" : {
             "auth" :
@@ -74,34 +75,15 @@ def serialize_and_save_to_json(request):
                     "password":serialized_vk_data[0]['password']
                 },
             "urls" : {
-              "feed" : serialized_task_data[0]['url_group'],
+              "feed" : serialized_task_data[i]['url_group'],
               "login" : "https://vk.com/login"
             },
             "task" : {
-                "id_last_post" : serialized_task_data[0]['id_last_post'],
-                "text" : serialized_task_data[0]['search_text'],
-                "id_task": serialized_task_data[0]['id']
+                "id_last_post" : serialized_task_data[i]['id_last_post'],
+                "text" : serialized_task_data[i]['search_text'],
+                "id_task": serialized_task_data[i]['id']
             }
           }
-        }
-        data_for_json_array.append(data_for_json)
-        data_for_json = {
-            "vk": {
-                "auth":
-                    {
-                        "login": serialized_vk_data[0]['login'],
-                        "password": serialized_vk_data[0]['password']
-                    },
-                "urls": {
-                    "feed": serialized_task_data[2]['url_group'],
-                    "login": "https://vk.com/login"
-                },
-                "task": {
-                    "id_last_post": serialized_task_data[2]['id_last_post'],
-                    "text": serialized_task_data[2]['search_text'],
-                    "id_task": serialized_task_data[2]['id']
-                }
-            }
         }
         data_for_json_array.append(data_for_json)
     return JsonResponse(data_for_json_array, status=200, safe=False)
