@@ -16,9 +16,10 @@ def index(request):
     return render(request, 'backend_api/index.html')
 
 
-@api_view(['POST'])
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def validate_token(request):
-    return Response({'message': 'Token is valid (POST)'})
+    return Response({'message': 'Token is valid (GET)'})
 
 
 def create_json_response_to_parser(request):

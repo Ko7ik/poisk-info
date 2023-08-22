@@ -5,7 +5,7 @@ from celery import Celery
 # Установите переменную окружения 'DJANGO_SETTINGS_MODULE' для настройки Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery('your_project')
+app = Celery('task')
 
 # Загрузите настройки Django для Celery
 app.config_from_object('django.conf:settings', namespace='CELERY')
