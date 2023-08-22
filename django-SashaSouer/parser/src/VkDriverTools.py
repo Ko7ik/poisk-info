@@ -31,7 +31,7 @@ class VkDriverTools:
         self.vk_text_search = result.split()
 
     def send_user_info_to_server(self, data):
-        url = 'http://192.168.0.189:8000/found_data/'
+        url = 'http://192.168.0.189:8000/api/found_data/'
         response = requests.post(url, json=data)
 
         if response.status_code == 201:

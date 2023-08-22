@@ -73,6 +73,19 @@ REST_FRAMEWORK = {
     ]
 }
 
+RABBITMQ_CONNECTION = {
+    'host': 'localhost',
+    'port': 5672,
+    'username': 'guest',
+    'password': 'guest',
+}
+
+CELERY_BROKER_URL = 'amqp://localhost:5672'  # URL-адрес брокера сообщений (например, RabbitMQ)
+CELERY_RESULT_BACKEND = 'db+postgresql://postgres:12345678@localhost/proba'  # URL-адрес базы данных для хранения результатов задач
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
