@@ -44,7 +44,7 @@ class VkDriverTools:
 
     @property
     def get_start(self):  # функция непосредственно парсера стены группы
-        print("начал парсить")
+        print("get_start: - Начал парсить")
         self.driver.get(self.vk_feed_url)  # переход на страницу таска
         time.sleep(2)
         existing_data = []
@@ -111,11 +111,13 @@ class VkDriverTools:
                     send_user_info_to_server(data)
                     time.sleep(3)
                     existing_data.append(data)
+                    print(existing_data, "Длина: ", len(existing_data))
 
                 except NoSuchElementException:
-                    pass
-
-            if len(existing_data) == 1:
+                    break
+                print("Длина: ", len(existing_data))
+            if len(existing_data) >= 2:
+                print("Длина в if: ", len(existing_data))
                 break
 
     @property
@@ -216,7 +218,7 @@ class VkDriverTools:
         email_input.clear()
         email_input.send_keys(self.vk_login)
         email_input.send_keys(Keys.ENTER)
-        time.sleep(10)
+        time.sleep(5)
 
         # поиск кнопки войти по паролю, если это необходимо
         try:

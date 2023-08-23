@@ -8,12 +8,12 @@ def get_data_from_server():
     if response.status_code == 200:
         data = response.json()
         print(data)
-        print('Сервер: - GET: Данные успешно получены')
+        print('Сервер: - GET: Данные успешно отправлены парсеру')
         return data
     else:
         data = response.json()
         print(data)
-        print('Сервер: - GET: Ошибка при получении данных')
+        print('Сервер: - GET: Ошибка при отправки данных парсеру')
         return 1
 
 
