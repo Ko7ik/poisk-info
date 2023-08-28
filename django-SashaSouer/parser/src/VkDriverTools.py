@@ -10,7 +10,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-from parser.serverResponce import *
+
+
+def send_user_info_to_server(data):
+    url = 'http://192.168.0.189:8000/api/found_data/'
+    token = 'Token 50661b7fa09f1a6267f1ebeda926a6829e427dd2'   # Передаём токен admin
+    headers = {
+        'Authorization': token,
+        'Content-Type': 'application/json',
+    }
+    response = requests.post(url, json=data, headers=headers)
+
+    if response.status_code == 201:
+        print('Сервер: - POST: Данные успешно отправлены на сервер')
+    else:
+        print('Сервер: - POST: Ошибка при отправке данных на сервер')
 
 
 class VkDriverTools:
@@ -111,17 +125,14 @@ class VkDriverTools:
                     send_user_info_to_server(data)
                     time.sleep(3)
                     existing_data.append(data)
-                    print(existing_data, "Длина: ", len(existing_data))
-
                 except NoSuchElementException:
-                    break
-                print("Длина: ", len(existing_data))
+                    pass
             if len(existing_data) >= 2:
-                print("Длина в if: ", len(existing_data))
                 break
 
     @property
     def get_feed(self):  # функция непосредственно парсера стены группы
+        print('Начал парсить')
 
         def find_matching_words_in_string(text, keywords):
             result = ''.join(filter(lambda x: x not in string.punctuation, text))
@@ -200,6 +211,8 @@ class VkDriverTools:
                             "id_post": id_str,
                             "link": f"https://vk.com/wall{id}"
                         }
+                        print(self.vk_text_search)
+                        print(text)
                         send_user_info_to_server(data)
                         time.sleep(3)
                         existing_data.append(data)

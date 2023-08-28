@@ -17,16 +17,16 @@ def get_data_from_server():
         return 1
 
 
-def send_user_info_to_server(data):
-    url = 'http://192.168.0.189:8000/api/found_data/'
-    token = 'Token 55749880d1d95cceeecc3a0c3d52c2d8e7d86932'   # Передаём токен admin
-    headers = {
-        'Authorization': token,
-        'Content-Type': 'application/json',
-    }
-    response = requests.post(url, json=data, headers=headers)
-
-    if response.status_code == 201:
-        print('Сервер: - POST: Данные успешно отправлены на сервер')
-    else:
-        print('Сервер: - POST: Ошибка при отправке данных на сервер')
+# def send_user_info_to_server(data):
+#     url = 'http://192.168.0.189:8000/api/found_data/'
+#     token = 'Token f58c25e33da28c9dfe7ff38038a9864958c47dd5'   # Передаём токен admin
+#     headers = {
+#         'Authorization': token,
+#         'Content-Type': 'application/json',
+#     }
+#     response = requests.post(url, json=data, headers=headers)
+#
+#     if response.status_code == 201:
+#         print('Сервер: - POST: Данные успешно отправлены на сервер')
+#     else:
+#         print('Сервер: - POST: Ошибка при отправке данных на сервер')

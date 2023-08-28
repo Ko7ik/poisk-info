@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-from parser.serverResponce import get_data_from_server
-from parser.src.VkDriverTools import VkDriverTools
-from parser.task import parse_data
+from serverResponce import get_data_from_server
+from src.VkDriverTools import VkDriverTools
 
 if __name__ == '__main__':
-
-    # parse_data.delay()  # Запустить задачу парсинга асинхронно #
 
     # Реализация парсера через цикл и массив #
 
