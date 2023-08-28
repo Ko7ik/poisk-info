@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-07$23ftu8v)d&sif@)=v349_40$1n(f89cog=#d_d)1q3=@%6!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.17:8000', 'localhost', '192.168.0.17']
 
 
 # Application definition
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'parser.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'poiskinfodb',
+        'NAME': 'proba',
         'USER': 'postgres',
         'PASSWORD': '12345678',
         'HOST': 'localhost'
