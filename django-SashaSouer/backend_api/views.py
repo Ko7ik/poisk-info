@@ -2,12 +2,13 @@
 import subprocess
 from django.http import JsonResponse
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .serializer import *
 
 
@@ -18,7 +19,6 @@ def index(request):
 
 # Проверка на валидность токена
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def validate_token(request):
     return Response({'message': 'Token is valid'})
 
@@ -60,7 +60,7 @@ def create_json_response_to_parser(request):
 
     # {'message': 'Data serialized and saved to JSON file.'}
 
-
+# Выдать пользователю токен при аутентификации
 class UserTokenView(APIView):
     def get(self, request):
         user = request.user
@@ -73,7 +73,7 @@ class UserTokenView(APIView):
 class TaskViewSet(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]  # Проверка аутентификации
+    # permission_classes = [IsAuthenticated]  # Проверка аутентификации
 
     # Присваиваем ID для социальной сети по её названию
     def create(self, request, *args, **kwargs):
@@ -84,23 +84,29 @@ class TaskViewSet(generics.ListCreateAPIView):
             request.data['social_net'] = 2
         return super().create(request, *args, **kwargs)
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()  # Получаем объект Task по его идентификатору
-        serializer = self.get_serializer(instance, data=request.data,
-                                         partial=True)  # Создаем сериализатор с данными из запроса
-        serializer.is_valid(raise_exception=True)  # Проверяем валидность данных
-        self.perform_update(serializer)  # Выполняем обновление объекта Task
-        return Response(serializer.data)
+    # def get_queryset(self):
+    #     # Получаем текущего аутентифицированного пользователя
+    #     username = self.request.username
+    #     # Фильтруем задачи по пользователю
+    #     queryset = Task.objects.filter(username=username)
+    #     return queryset
+    #
+    # def perform_create(self, serializer):
+    #     # Присваиваем текущего аутентифицированного пользователя полю "user_id"
+    #     serializer.save(username=self.request.username)
 
-    def perform_update(self, serializer):
-        serializer.save()  # Сохраняем изменения в объекте Task
+
+# Views для редактирования Task
+class TaskViewSetDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]  # Проверка аутентификации
 
 
 # Views для FoundData
 class FoundDataViewSet(viewsets.ModelViewSet):
     queryset = FoundData.objects.all()
     serializer_class = FoundDataSerializer
-    permission_classes = (IsAuthenticated,)  # Проверка аутентификации
 
     #  Проверка на тип данных, на случай, если придет list
     def create(self, request, *args, **kwargs):

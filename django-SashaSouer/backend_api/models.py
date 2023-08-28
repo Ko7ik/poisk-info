@@ -40,7 +40,7 @@ class UserToken(Token):
 
 class Task(models.Model):
     """Таблица с тасками для поиска"""
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     social_net = models.ForeignKey(SocialNetwork, on_delete=models.CASCADE, verbose_name="Социальная сеть")
     search_text = models.CharField(verbose_name="Искомый текст")
     date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")

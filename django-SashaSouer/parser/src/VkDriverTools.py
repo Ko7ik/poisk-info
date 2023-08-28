@@ -10,12 +10,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-from configurate import localhost
+from configurate import localhost, admin_token
 
 
 def send_user_info_to_server(data):
     url = f'http://{localhost}/api/found_data/'
-    token = 'Token 6cd7a47a0ab39fb1aa26dce0d635a12f4590e029'   # Передаём токен admin
+    token = f'Token {admin_token}'   # Передаём токен admin
     headers = {
         'Authorization': token,
         'Content-Type': 'application/json',
