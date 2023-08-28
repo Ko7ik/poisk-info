@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 
     path('task/', TaskViewSet.as_view(), name='tasks-create'),
+    path('task/<int:pk>/', TaskViewSetDetailView.as_view(), name='tasks-create'),
 
     path('drf-auth/', include('rest_framework.urls')),
     path('create_json_response_to_parser/', views.create_json_response_to_parser, name='serialize_and_save_to_json'),

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from celery import shared_task
 from serverResponce import get_data_from_server
-from parser.VkDriverTools import VkDriverTools
+from parser.src.VkDriverTools import VkDriverTools
 
 
 @shared_task

@@ -10,11 +10,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
+from configurate import localhost, admin_token
 
 
 def send_user_info_to_server(data):
-    url = 'http://192.168.0.189:8000/api/found_data/'
-    token = 'Token 50661b7fa09f1a6267f1ebeda926a6829e427dd2'   # Передаём токен admin
+    url = f'http://{localhost}/api/found_data/'
+    token = f'Token {admin_token}'   # Передаём токен admin
     headers = {
         'Authorization': token,
         'Content-Type': 'application/json',
@@ -29,11 +30,20 @@ def send_user_info_to_server(data):
 
 class VkDriverTools:
 
-    def __init__(self, config):  # запуск драйвера и выгрузка данных из JSON
+    def __init__(self):  # запуск драйвера и выгрузка данных из JSON
         service = Service()
         options = webdriver.ChromeOptions()
         self.driver = webdriver.Chrome(service=service, options=options)
         # self.driver = webdriver.Chrome(config['paths']['chromedriver'])
+        # self.id_task = 1
+        # self.vk_login_url = ""
+        # self.vk_feed_url = ""
+        # self.vk_login = ""
+        # self.vk_password = ""
+        # self.vk_last_id = 1
+        # self.vk_text_search = ""
+
+    def raschlenenka(self, config):
         self.id_task = int(config['vk']['task']['id_task'])
         self.vk_login_url = config['vk']['urls']['login']
         self.vk_feed_url = config['vk']['urls']['feed']
@@ -44,14 +54,6 @@ class VkDriverTools:
         result = ''.join(filter(lambda x: x not in string.punctuation, self.vk_text_search))
         self.vk_text_search = result.split()
 
-    def send_user_info_to_server(self, data):
-        url = 'http://192.168.0.189:8000/api/found_data/'
-        response = requests.post(url, json=data)
-
-        if response.status_code == 201:
-            print('Данные успешно отправлены на сервер')
-        else:
-            print('Ошибка при отправке данных на сервер')
 
     def get_driver(self):
         return self.driver
@@ -222,7 +224,7 @@ class VkDriverTools:
             if flag == 1:
                 break
 
-        return existing_data
+
 
     def login(self):  # Авторизация бота
         self.driver.get(self.vk_login_url)  # переход на страницу авторизации

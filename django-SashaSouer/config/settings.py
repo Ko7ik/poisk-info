@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from configurate import localhost1, name_bd,user_bd,port_bd,password_bd,host_bd
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-^#u+dp)gfm6b+2s41r#9t72a11hivl6-4#3b@zbwob(r6c)jkx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.17:8000', 'localhost', '192.168.0.17']
+ALLOWED_HOSTS = [f'{localhost1}', 'localhost', f'{localhost1}']
 
 
 # Application definition
@@ -63,7 +64,7 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.IsAuthenticated'
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -116,10 +117,11 @@ STATIC_URL = '/static/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proba',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost'
+        'NAME': name_bd,
+        'USER': user_bd,
+        'PASSWORD': password_bd,
+        'HOST': host_bd,
+        'PORT': port_bd
     }
 }
 
