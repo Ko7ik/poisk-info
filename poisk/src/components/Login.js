@@ -17,14 +17,14 @@ const Login = observer(() => {
     const handleSubmit = async (form) => {
         console.log('FORM: ', form)
         await currentUser.login(form.username, form.password)
-        console.log('login ')
+        console.log('login')
     }
 
     return (
         <div className="Main">
             <div className="login">
                 <form /*onSubmit={handleSubmit}*/>
-                    <h2>{currentUser.user.username}</h2>
+                    {/* <h2>{currentUser.user.username}</h2> */}
                     <h2>Вход</h2>
                     <input
                         type="text"

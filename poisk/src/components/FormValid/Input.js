@@ -32,17 +32,24 @@ export const Input = ({
     return (
         <div className={cn('flex flex-col w-full gap-2', className)}>
             <div className="flex justify-between">
-                <label htmlFor={id} className="font-semibold capitalize">
-                    {label}
-                </label>
-                <AnimatePresence mode="wait" initial={false}>
-                    {isInvalid && (
-                        <InputError
-                            message={inputErrors.error.message}
-                            key={inputErrors.error.message}
-                        />
-                    )}
-                </AnimatePresence>
+                <div>
+                    <label
+                        htmlFor={id}
+                        className="font-semibold capitalize text-center"
+                    >
+                        {label}
+                    </label>
+                </div>
+                <div className="flex justify-end">
+                    <AnimatePresence mode="wait" initial={false}>
+                        {isInvalid && (
+                            <InputError
+                                message={inputErrors.error.message}
+                                key={inputErrors.error.message}
+                            />
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
             {multiline ? (
                 <textarea
@@ -71,7 +78,7 @@ export const Input = ({
 const InputError = ({ message }) => {
     return (
         <motion.p
-            className="flex items-center gap-1 px-2 font-semibold text-red-500 bg-red-100 rounded-md"
+            className="flex flex-end items-center gap-1 px-2 font-semibold text-red-500 bg-red-100 rounded-md"
             {...framer_error}
         >
             <MdError />

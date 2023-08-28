@@ -5,9 +5,12 @@ export const currentUser = makeAutoObservable({
     user: {},
     isAuth: false,
     loading: false,
+    unsuccess: false,
+    checkAuth: false,
     logout() {
         this.isAuth = false
         localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
     },
     async login(login, pass) {
         console.log('start login')
@@ -18,17 +21,53 @@ export const currentUser = makeAutoObservable({
                 password: pass,
             }
             const response = await axios.post(
-                'http://192.168.0.17:8000/auth/token/login',
+                'http://192.168.0.189:8000/api/auth/token/login/',
                 loginForm,
             )
-            console.log(',response', response)
+            const resp = await axios.get(
+                'http://192.168.0.189:8000/api/auth/users/',
+                {
+                    headers: {
+                        Authorization: 'Token ' + response.data.auth_token,
+                    },
+                },
+            )
+            console.log('response', response)
+            console.log('resp', resp)
             localStorage.setItem('token', response.data.auth_token)
+            localStorage.setItem('user_id', resp.data[0].id)
             this.user = loginForm
             this.setLoading()
             this.isAuth = true
+            this.checkAuth = true
         } catch (e) {
             console.log('err', e)
             this.setLoading()
+            this.unsuccess = true
+        }
+    },
+
+    async checkToken() {
+        console.log('start check')
+        this.setLoading()
+        try {
+            const response = await axios.get(
+                'http://192.168.0.189:8000/api/validate-token/',
+                {
+                    headers: {
+                        Authorization: 'Token ' + localStorage.getItem('token'),
+                    },
+                },
+            )
+            console.log('check ', response)
+            this.setLoading()
+            this.checkAuth = true
+            this.isAuth = true
+        } catch (e) {
+            console.log('checkErr', e)
+            this.setLoading()
+            localStorage.removeItem('token')
+            localStorage.removeItem('user_id')
         }
     },
 

@@ -1,41 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Navigate, Route, Routes } from 'react-router-dom'
+import { Fragment, useEffect } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { FormFC } from './components/FormFC'
+import { observer } from 'mobx-react-lite'
+
+// import Login from './components/Login'
+import LogForm from './components/FormValid/LogForm'
 import RegForm from './components/FormValid/RegForm'
+import TaskForm from './components/FormValid/TaskForm'
 import MenuFC from './components/MenuFC'
 import MonitorFC from './components/MonitorFC'
-//import Login from './components/Login'
-import Register from './components/Register'
+//import Register from './components/Register'
+import { Tasks } from './components/Task'
+import { useRootStore } from './store'
 
-function App() {
-    const [isAuth, setIsAuth] = useState(false)
-
+const App = observer(() => {
+    const { currentUser } = useRootStore()
     useEffect(() => {
-        const TrueToken = localStorage.getItem('token')
-        console.log(localStorage.getItem('token') + ' Токен в локал сторанж')
-        console.log(TrueToken + ' значение токена TrueToken')
-
-        if (TrueToken === 'null') {
-            setIsAuth(false)
-            console.log('значение нул')
-        }
-        if (TrueToken) {
-            setIsAuth(true)
-            console.log('токен есть')
-        }
-
-        console.log(isAuth)
+        currentUser.checkToken()
     }, [])
 
-    //проверка из стора
+    console.log(currentUser.isAuth)
 
-    return isAuth ? (
+    return currentUser.isAuth ? (
         <div className="body">
             {console.log('isAuth = true, загрузка формы')}
-            <MenuFC />
             <Routes>
-                <Route path="/form" element={<FormFC />}></Route>
+                <Route
+                    path="/form"
+                    element={
+                        <Fragment>
+                            <MenuFC />
+                            <TaskForm />
+                        </Fragment>
+                    }
+                />
+                <Route
+                    path="/tasks"
+                    element={
+                        <Fragment>
+                            <MenuFC />
+                            <Tasks />
+                        </Fragment>
+                    }
+                />
                 <Route path="/monitor" element={<MonitorFC />}></Route>
                 <Route path="/*" element={<Navigate replace to="/form" />} />
             </Routes>
@@ -44,12 +51,12 @@ function App() {
         (console.log('isAuth = false, загрузка логина'),
         (
             <Routes>
-                <Route path="/login" element={<RegForm />}></Route>
-                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<LogForm />}></Route>
+                <Route path="/register" element={<RegForm />}></Route>
                 <Route path="/*" element={<Navigate replace to="/login" />} />
             </Routes>
         ))
     )
-}
+})
 
 export default App

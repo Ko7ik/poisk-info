@@ -13,6 +13,5 @@ app.render(
         <BrowserRouter>
             <App />
         </BrowserRouter>
-        ,
     </RootStoreProvider>,
 )

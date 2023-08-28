@@ -1,15 +1,18 @@
 // Использование фукциональной компоненты(FC)
 import React from 'react'
+import { useState } from 'react'
 import { SiVk } from 'react-icons/si'
 
 import axios from 'axios'
 
 export const FormFC = () => {
+    const [success, setSuccess] = useState(false)
+    const [unsuccess, setUnsuccess] = useState(false)
     const iniState = {
-        //public: false,
-        //person: false,
-        url_groupe: '',
-        search_string: '',
+        social_net: 1,
+        url_group: '',
+        search_text: '',
+        user_id: localStorage.getItem('user_id'),
         //+ токен
     }
     // спользование хука useState для хранения состояния
@@ -27,26 +30,33 @@ export const FormFC = () => {
         //отчищаем форму
         setForm(iniState)
 
-        const response = await axios.post(
-            'http://192.168.0.17:8000/search_data/',
-            form,
-        )
+        const response = await axios
+            .post('http://192.168.0.189:8000/api/task/', form, {
+                headers: {
+                    Authorization: 'Token ' + localStorage.getItem('token'),
+                },
+            })
+            .catch((err) => {
+                console.log(err)
+                setUnsuccess(true)
+            })
         console.log(response)
     }
 
     return (
         <div className="Main">
             <form onSubmit={handleSubmit}>
-                <div className="ico">
-                    <SiVk size={42} />
-                </div>
+                <h1 className="text-base font-black uppercase mb-12 pb-5 border-b-4 border-zinc-700 border-dotted">
+                    Создать новый запрос
+                </h1>
                 <label htmlFor="SocNet">Социальная сеть / мессенджер</label>
-                <select name="SocialNetwork" id="SocNet">
-                    <option value="vk">Вконтакте </option>
-                    <option value="tg">...? </option>
-                    <option value="ok">...? </option>
+                <select name="social_net" onChange={handleChange} id="SocNet">
+                    <option value={1} selected>
+                        Вконтакте
+                    </option>
+                    <option value={2}>Telegram</option>
                 </select>
-                <div className="radio">
+                {/* <div className="radio">
                     <label htmlFor="fid-1">Паблик</label>
                     <label htmlFor="fid-2">Пользователь</label>
                     <input
@@ -65,21 +75,36 @@ export const FormFC = () => {
                         checked={form.radio === 'user' ? true : false}
                         onChange={handleChange}
                     />
-                </div>
+                </div> */}
+                <label htmlFor="url">URL</label>
                 <input
-                    placeholder="URL"
-                    name="url_groupe"
-                    value={form.url_groupe}
+                    id="url"
+                    placeholder="https://..."
+                    name="url_group"
+                    value={form.url_group}
                     onChange={handleChange}
                 />
                 <textarea
                     placeholder="Ключевые слова"
-                    name="search_string"
-                    value={form.search_string}
+                    name="search_text"
+                    value={form.search_text}
                     onChange={handleChange}
                 />
 
-                <button type="submit">Запустить процесс</button>
+                <div className="mt-5">
+                    {success && (
+                        <p className="flex items-center gap-1 mb-5 font-semibold text-green-500">
+                            Форма успешно отправлена
+                        </p>
+                    )}
+                    {unsuccess && (
+                        <p className="flex items-center gap-1 mb-5 font-semibold text-red-500">
+                            Ошибка отправки формы
+                        </p>
+                    )}
+
+                    <button type="submit">Запустить процесс</button>
+                </div>
             </form>
         </div>
     )
