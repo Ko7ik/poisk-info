@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import requests
+from configurate import localhost
 
 
 def get_data_from_server():
-    url = 'http://192.168.0.189:8000/api/create_json_response_to_parser/'  # Замените на адрес вашего представления
+    url = f'http://{localhost}/api/create_json_response_to_parser/'  # Замените на адрес вашего представления
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
