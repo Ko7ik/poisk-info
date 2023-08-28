@@ -10,7 +10,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import datetime
-from parser.serverResponce import *
+
+
+def send_user_info_to_server(data):
+    url = 'http://192.168.0.189:8000/api/found_data/'
+    token = 'Token 50661b7fa09f1a6267f1ebeda926a6829e427dd2'   # Передаём токен admin
+    headers = {
+        'Authorization': token,
+        'Content-Type': 'application/json',
+    }
+    response = requests.post(url, json=data, headers=headers)
+
+    if response.status_code == 201:
+        print('Сервер: - POST: Данные успешно отправлены на сервер')
+    else:
+        print('Сервер: - POST: Ошибка при отправке данных на сервер')
 
 
 class VkDriverTools:
@@ -31,7 +45,7 @@ class VkDriverTools:
         self.vk_text_search = result.split()
 
     def send_user_info_to_server(self, data):
-        url = 'http://192.168.0.189:8000/found_data/'
+        url = 'http://192.168.0.189:8000/api/found_data/'
         response = requests.post(url, json=data)
 
         if response.status_code == 201:
@@ -44,7 +58,7 @@ class VkDriverTools:
 
     @property
     def get_start(self):  # функция непосредственно парсера стены группы
-        print("начал парсить")
+        print("get_start: - Начал парсить")
         self.driver.get(self.vk_feed_url)  # переход на страницу таска
         time.sleep(2)
         existing_data = []
@@ -111,15 +125,14 @@ class VkDriverTools:
                     send_user_info_to_server(data)
                     time.sleep(3)
                     existing_data.append(data)
-
                 except NoSuchElementException:
                     pass
-
-            if len(existing_data) == 1:
+            if len(existing_data) >= 2:
                 break
 
     @property
     def get_feed(self):  # функция непосредственно парсера стены группы
+        print('Начал парсить')
 
         def find_matching_words_in_string(text, keywords):
             result = ''.join(filter(lambda x: x not in string.punctuation, text))
@@ -198,6 +211,8 @@ class VkDriverTools:
                             "id_post": id_str,
                             "link": f"https://vk.com/wall{id}"
                         }
+                        print(self.vk_text_search)
+                        print(text)
                         send_user_info_to_server(data)
                         time.sleep(3)
                         existing_data.append(data)
@@ -216,7 +231,7 @@ class VkDriverTools:
         email_input.clear()
         email_input.send_keys(self.vk_login)
         email_input.send_keys(Keys.ENTER)
-        time.sleep(10)
+        time.sleep(5)
 
         # поиск кнопки войти по паролю, если это необходимо
         try:
