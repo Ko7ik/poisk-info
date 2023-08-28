@@ -1,19 +1,12 @@
-# -*- coding: utf-8 -*-
-
-from rest_framework import serializers, generics
+færom rest_framework import serializers
 from .models import *
-
-from rest_framework import serializers
+import json
 
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'social_net', 'url_group', 'search_text', 'user_id', 'id_last_post']
-
-    def create(self, validated_data):
-        validated_data['user_id'] = self.context['request'].user
-        return super().create(validated_data)
+        fields = "__all__"
 
 
 class FoundDataSerializer(serializers.ModelSerializer):
