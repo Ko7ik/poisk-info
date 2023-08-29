@@ -25,7 +25,7 @@ body {
 }
 
 .Main  {
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: row;
     flex-grow: 2;
@@ -42,7 +42,7 @@ form {
     justify-content: space-between;
     align-items: stretch;
     text-align: center;
-    background-color: #D9D9D9;
+    background-color: #d4d4d4;
     color: #313131;
     padding: 3rem;
     border-radius: 1rem;
@@ -81,7 +81,7 @@ form {
     cursor: pointer;
     transition: transform 500ms ease;
     background-color: #313131;
-    color: #D9D9D9;
+    color: #d4d4d4;
     padding: 1rem;
     border-radius: 2rem;
 }
@@ -115,10 +115,11 @@ input[type=file]::file-selector-button:hover {
 }
 
 .menu {
+    top: 0;
     flex: 0 0 auto;
     overflow-y: auto;
     min-width: 5em;
-    flex-shrink: 3;
+    flex-grow: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,11 +127,11 @@ input[type=file]::file-selector-button:hover {
 }
 
 .flexmenu {
-    flex: 1 1 auto;
+    top: 0;
     overflow-y: auto;
-    height: 100%;
     position: fixed;
-    background-color: #D9D9D9;
+    height: 100%;
+    background-color: #d4d4d4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,7 +167,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 .Main2  {
-    height: 100vh;
+    flex: 1 1 100%;
     display: flex;
     flex-direction: row;
     flex-grow: 2;
@@ -191,7 +192,8 @@ input[type=file]::file-selector-button:hover {
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
-    background-color: #D9D9D9;
+    background-color: #d4d4d4;
+    ;
     color: #313131;
     padding: 3em;
     margin: 2rem;

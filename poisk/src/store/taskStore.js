@@ -29,7 +29,6 @@ export const taskUser = makeAutoObservable({
                 },
             )
             console.log('task', response)
-            // this.task = taskForm
             this.success = true
             this.setLoading()
         } catch (e) {
@@ -52,6 +51,8 @@ export const taskUser = makeAutoObservable({
                 },
             )
             console.log('task', response)
+            this.tasks = response.data.data
+            console.log('массив из ответа - ', this.tasks)
             this.setLoading()
         } catch (e) {
             console.log('оштбка получения списка тасков', e)
@@ -72,7 +73,6 @@ export const taskUser = makeAutoObservable({
                 },
             )
             console.log('Состояние', response)
-            // this.task = taskForm
             this.success = true
             this.setLoading()
         } catch (e) {
@@ -86,9 +86,6 @@ export const taskUser = makeAutoObservable({
         console.log('получение списка тасков')
         this.setLoading()
         try {
-            // const foundData = {
-            //     social_net: id,
-            // }
             const response = await axios.get(
                 'http://192.168.0.189:8000/api/task/', //+ id
                 {
