@@ -4,9 +4,12 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { observer } from 'mobx-react-lite'
 
-import { useRootStore } from '../../store'
-import { Input } from './Input'
-import { name_validation, pass_login_valid } from './utils/inputValidations'
+import { Input } from '../components/FormValid/Input'
+import {
+    name_validation,
+    pass_login_valid,
+} from '../components/FormValid/utils/inputValidations'
+import { useRootStore } from '../store'
 
 const LogForm = observer(() => {
     const { currentUser } = useRootStore()
@@ -30,7 +33,7 @@ const LogForm = observer(() => {
         <FormProvider {...methods}>
             <div className="Main">
                 <div className="flex flex-col gap-5 items-center">
-                    <h1 className="text-2xl font-bold uppercase">Вход</h1>
+                    <h1 className="text-2xl font-bold capitalize">Вход</h1>
                     <form
                         onSubmit={(e) => e.preventDefault()}
                         autoComplete="off"

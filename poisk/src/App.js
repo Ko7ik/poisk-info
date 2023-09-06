@@ -3,14 +3,12 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { observer } from 'mobx-react-lite'
 
-// import Login from './components/Login'
-import LogForm from './components/FormValid/LogForm'
-import RegForm from './components/FormValid/RegForm'
-import TaskForm from './components/FormValid/TaskForm'
-import MenuFC from './components/MenuFC'
-import MonitorFC from './components/MonitorFC'
-//import Register from './components/Register'
-import { Tasks } from './components/Task'
+import LogForm from './pages/LogForm'
+import MenuFC from './pages/MenuFC'
+import MonitorFC from './pages/MonitorFC'
+import RegForm from './pages/RegForm'
+import { Tasks } from './pages/Task'
+import TaskForm from './pages/TaskForm'
 import { useRootStore } from './store'
 
 const App = observer(() => {

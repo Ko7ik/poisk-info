@@ -21,11 +21,11 @@ export const currentUser = makeAutoObservable({
                 password: pass,
             }
             const response = await axios.post(
-                'http://192.168.0.189:8000/api/auth/token/login/',
+                'http://192.168.43.150:8000/api/auth/token/login/',
                 loginForm,
             )
             const resp = await axios.get(
-                'http://192.168.0.189:8000/api/auth/users/',
+                'http://192.168.43.150:8000/api/auth/users/',
                 {
                     headers: {
                         Authorization: 'Token ' + response.data.auth_token,
@@ -52,7 +52,7 @@ export const currentUser = makeAutoObservable({
         this.setLoading()
         try {
             const response = await axios.get(
-                'http://192.168.0.189:8000/api/validate-token/',
+                'http://192.168.43.150:8000/api/validate-token/',
                 {
                     headers: {
                         Authorization: 'Token ' + localStorage.getItem('token'),

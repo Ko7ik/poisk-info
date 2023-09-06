@@ -6,8 +6,11 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
 
-import { Input } from './Input'
-import { name_validation, password_validation } from './utils/inputValidations'
+import { Input } from '../components/FormValid/Input'
+import {
+    name_validation,
+    password_validation,
+} from '../components/FormValid/utils/inputValidations'
 
 const RegForm = () => {
     const methods = useForm()
@@ -22,7 +25,7 @@ const RegForm = () => {
         console.log('FORM: ', data)
 
         const response = axios.post(
-            'http://192.168.0.189:8000/api/auth/users/',
+            'http://192.168.43.150:8000/api/auth/users/',
             data,
         )
         console.log(response)

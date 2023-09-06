@@ -20,7 +20,7 @@ export const taskUser = makeAutoObservable({
             }
             console.log(taskForm)
             const response = await axios.post(
-                'http://192.168.0.189:8000/api/task/',
+                'http://192.168.43.150:8000/api/task/',
                 taskForm,
                 {
                     headers: {
@@ -43,7 +43,7 @@ export const taskUser = makeAutoObservable({
         this.setLoading()
         try {
             const response = await axios.get(
-                'http://192.168.0.189:8000/api/task/',
+                'http://192.168.43.150:8000/api/task/',
                 {
                     headers: {
                         Authorization: 'Token ' + localStorage.getItem('token'),
@@ -51,11 +51,12 @@ export const taskUser = makeAutoObservable({
                 },
             )
             console.log('task', response)
-            this.tasks = response.data.data
+            this.tasks = [...response.data]
+            console.log('response.data.data', response.data)
             console.log('массив из ответа - ', this.tasks)
             this.setLoading()
         } catch (e) {
-            console.log('оштбка получения списка тасков', e)
+            console.log('ошибка получения списка тасков', e)
             this.setLoading()
         }
     },
@@ -65,7 +66,7 @@ export const taskUser = makeAutoObservable({
         this.setLoading()
         try {
             const response = await axios.post(
-                'http://192.168.0.189:8000/api/parser_run/',
+                'http://192.168.43.150:8000/api/parser_run/',
                 {
                     headers: {
                         Authorization: 'Token ' + localStorage.getItem('token'),
@@ -87,7 +88,7 @@ export const taskUser = makeAutoObservable({
         this.setLoading()
         try {
             const response = await axios.get(
-                'http://192.168.0.189:8000/api/task/', //+ id
+                'http://192.168.43.150:8000/api/task/', //+ id
                 {
                     headers: {
                         Authorization: 'Token ' + localStorage.getItem('token'),
@@ -95,7 +96,7 @@ export const taskUser = makeAutoObservable({
                 },
             )
             console.log('task', response)
-            this.task = response.data.data
+            this.tasks = response.data.data
             this.setLoading()
         } catch (e) {
             console.log('ошибка получения списка тасков', e)

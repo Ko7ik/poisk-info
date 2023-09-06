@@ -3,9 +3,12 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { observer } from 'mobx-react-lite'
 
-import { useRootStore } from '../../store'
-import { Input } from './Input'
-import { text_validation, url_validation } from './utils/inputValidations'
+import { Input } from '../components/FormValid/Input'
+import {
+    text_validation,
+    url_validation,
+} from '../components/FormValid/utils/inputValidations'
+import { useRootStore } from '../store'
 
 const TaskForm = observer(() => {
     const { taskUser } = useRootStore()

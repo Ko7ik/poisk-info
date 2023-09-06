@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 
-const apiUrl = 'http://192.168.0.189:8000/api/found_data/'
+const apiUrl = 'http://192.168.43.150:8000/api/found_data/'
 
 function MonitorFC() {
     const [MonitorState, setMonitorState] = React.useState([])
@@ -51,7 +51,7 @@ function MonitorFC() {
 
     return (
         <div className="flex flex-row justify-between gap-3">
-            <Link to="/task">
+            <Link to="/tasks">
                 <div className="backmenu">
                     <IoIosArrowDropleftCircle size={36} />
                 </div>

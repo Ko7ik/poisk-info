@@ -1,0 +1,7 @@
+'http://192.168.43.150:8000/api/auth/token/login/'
+'http://192.168.43.150:8000/api/auth/users/'
+'http://192.168.43.150:8000/api/validate-token/'
+'http://192.168.43.150:8000/api/task/'
+'http://192.168.43.150:8000/api/task/'
+'http://192.168.43.150:8000/api/parser_run/'
+'http://192.168.43.150:8000/api/found_data/'

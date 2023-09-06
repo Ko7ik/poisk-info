@@ -8,27 +8,11 @@ import { useRootStore } from '../store'
 
 export const Tasks = observer(() => {
     const { taskUser } = useRootStore()
-    const [MonitorState, setMonitorState] = React.useState([])
-    // const [start, setStart] = React.useState(false)
 
     React.useEffect(() => {
         taskUser.success = false
         taskUser.unsuccess = false
         taskUser.getTaskList()
-        //     axios
-        //         .get('http://192.168.0.189:8000/api/task/', {
-        //             headers: {
-        //                 Authorization: 'Token ' + localStorage.getItem('token'),
-        //             },
-        //         })
-        //         .then((data) => {
-        //             setMonitorState(data.data)
-        //         })
-        //         .then((response) => console.log(response))
-
-        //         .catch((err) => {
-        //             console.log(err)
-        //         })
     }, [])
 
     const onSubmit = async () => {
@@ -58,6 +42,7 @@ export const Tasks = observer(() => {
                 </button>
             </div>
             <div className="flex flex-col justify-start text-left gap-3">
+                <h3 className="font-semibold">Задание № {task.id}</h3>
                 <h3>Социальная сеть: {task.social_net}</h3>
                 <p>
                     URL группы:{' '}
@@ -86,11 +71,13 @@ export const Tasks = observer(() => {
                 )}
             </div>
             <div className="flex justify-between items-center">
-                <h3> Статус - {task.status}</h3>
+                <h3 className="text-neutral-500 font-semibold">
+                    {task.status}
+                </h3>
                 <Link to="/monitor">
                     <button
-                        // onClick={taskUser.foundText(tasks.id)}
-                        className="flex justify-center items-center gap-1 p-3 font-semibold bg-neutral-800 text-white rounded-md hover:bg-neutral-600"
+                        // onClick={taskUser.foundText(task.id)}
+                        className="flex justify-center items-center gap-1 p-3 font-semibold bg-neutral-800 text-neutral-300 rounded-md hover:bg-neutral-600"
                     >
                         Посмотреть результаты поиска
                     </button>
