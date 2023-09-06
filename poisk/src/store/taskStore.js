@@ -84,7 +84,7 @@ export const taskUser = makeAutoObservable({
     },
 
     async foundText(id) {
-        console.log('получение списка тасков')
+        console.log('получение тасков')
         this.setLoading()
         try {
             const response = await axios.get(
