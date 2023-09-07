@@ -7,6 +7,7 @@ export const currentUser = makeAutoObservable({
     loading: false,
     unsuccess: false,
     checkAuth: false,
+    isLoading: true,
     logout() {
         this.isAuth = false
         localStorage.removeItem('token')
@@ -63,11 +64,13 @@ export const currentUser = makeAutoObservable({
             this.setLoading()
             this.checkAuth = true
             this.isAuth = true
+            this.isLoading = false
         } catch (e) {
             console.log('checkErr', e)
             this.setLoading()
             localStorage.removeItem('token')
             localStorage.removeItem('user_id')
+            this.isLoading = false
         }
     },
 

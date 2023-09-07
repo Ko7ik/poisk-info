@@ -10,8 +10,6 @@ import './css/index.css'
 const app = ReactDOMClient.createRoot(document.getElementById('app'))
 app.render(
     <RootStoreProvider store={rootStore}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <App />
     </RootStoreProvider>,
 )
