@@ -12,6 +12,7 @@ import { observer } from 'mobx-react-lite'
 import LogForm from './pages/LogForm'
 import MenuFC from './pages/MenuFC'
 import MonitorFC from './pages/MonitorFC'
+import PageNotFound from './pages/PageNotFound'
 import RegForm from './pages/RegForm'
 import { Tasks } from './pages/Task'
 import TaskForm from './pages/TaskForm'
@@ -21,7 +22,7 @@ const router1 = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route
-                path="/form"
+                path="/"
                 element={
                     <Fragment>
                         <MenuFC />
@@ -39,7 +40,7 @@ const router1 = createBrowserRouter(
                 }
             />
             <Route path="/monitor" element={<MonitorFC />}></Route>
-            <Route path="/*" element={<Navigate replace to="/form" />} />
+            <Route path="*" element={<PageNotFound />} />
         </>,
     ),
 )
@@ -47,9 +48,9 @@ const router1 = createBrowserRouter(
 const router2 = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route path="/login" element={<LogForm />}></Route>
+            <Route path="/" element={<LogForm />}></Route>
             <Route path="/register" element={<RegForm />}></Route>
-            <Route path="/*" element={<Navigate replace to="/login" />} />
+            <Route path="*" element={<PageNotFound />} />
         </>,
     ),
 )

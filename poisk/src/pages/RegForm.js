@@ -73,7 +73,7 @@ const RegForm = () => {
                             </button>
                         </div>
                     </form>
-                    <Link to="/login">
+                    <Link to="/">
                         <p>Войти</p>
                     </Link>
                 </div>
