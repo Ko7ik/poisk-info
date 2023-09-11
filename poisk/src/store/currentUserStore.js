@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { makeAutoObservable } from 'mobx'
+
+import { checkTokenAPI, loginFormAPI, loginIDAPI } from '../components/api/api'
 
 export const currentUser = makeAutoObservable({
     user: {},
@@ -21,22 +22,11 @@ export const currentUser = makeAutoObservable({
                 username: login,
                 password: pass,
             }
-            const response = await axios.post(
-                'http://192.168.43.150:8000/api/auth/token/login/',
-                loginForm,
-            )
-            const resp = await axios.get(
-                'http://192.168.43.150:8000/api/auth/users/',
-                {
-                    headers: {
-                        Authorization: 'Token ' + response.data.auth_token,
-                    },
-                },
-            )
-            console.log('response', response)
-            console.log('resp', resp)
+            const response = await loginFormAPI(loginForm)
+            const resp = await loginIDAPI(response.data.auth_token)
             localStorage.setItem('token', response.data.auth_token)
             localStorage.setItem('user_id', resp.data[0].id)
+            console.log(resp)
             this.user = loginForm
             this.setLoading()
             this.isAuth = true
@@ -52,14 +42,7 @@ export const currentUser = makeAutoObservable({
         console.log('start check')
         this.setLoading()
         try {
-            const response = await axios.get(
-                'http://192.168.43.150:8000/api/validate-token/',
-                {
-                    headers: {
-                        Authorization: 'Token ' + localStorage.getItem('token'),
-                    },
-                },
-            )
+            const response = await checkTokenAPI()
             console.log('check ', response)
             this.setLoading()
             this.checkAuth = true

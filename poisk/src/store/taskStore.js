@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { makeAutoObservable } from 'mobx'
+
+import { getTaskListAPI, startAPI, taskListAPI } from '../components/api/api'
 
 export const taskUser = makeAutoObservable({
     tasks: [],
@@ -18,15 +19,7 @@ export const taskUser = makeAutoObservable({
                 user_id: localStorage.getItem('user_id'),
             }
             console.log(taskForm)
-            const response = await axios.post(
-                'http://192.168.43.150:8000/api/task/',
-                taskForm,
-                {
-                    headers: {
-                        Authorization: 'Token ' + localStorage.getItem('token'),
-                    },
-                },
-            )
+            const response = await taskListAPI(taskForm)
             console.log('task', response)
             this.success = true
         } catch (e) {
@@ -39,14 +32,7 @@ export const taskUser = makeAutoObservable({
         console.log('получение списка тасков')
         this.setLoading()
         try {
-            const response = await axios.get(
-                'http://192.168.43.150:8000/api/task/',
-                {
-                    headers: {
-                        Authorization: 'Token ' + localStorage.getItem('token'),
-                    },
-                },
-            )
+            const response = await getTaskListAPI()
             this.tasks = [...response.data]
             this.setLoading()
         } catch (e) {
@@ -58,14 +44,7 @@ export const taskUser = makeAutoObservable({
     async start() {
         console.log('запустить парсер')
         try {
-            const response = await axios.post(
-                'http://192.168.43.150:8000/api/parser_run/',
-                {
-                    headers: {
-                        Authorization: 'Token ' + localStorage.getItem('token'),
-                    },
-                },
-            )
+            const response = await startAPI()
             console.log('Состояние', response)
             this.success = true
         } catch (e) {
@@ -74,26 +53,26 @@ export const taskUser = makeAutoObservable({
         }
     },
 
-    async foundText(id) {
-        console.log('получение тасков')
-        this.setLoading()
-        try {
-            const response = await axios.get(
-                'http://192.168.43.150:8000/api/task/', //+ id
-                {
-                    headers: {
-                        Authorization: 'Token ' + localStorage.getItem('token'),
-                    },
-                },
-            )
-            console.log('task', response)
-            this.tasks = response.data.data
-            this.setLoading()
-        } catch (e) {
-            console.log('ошибка получения списка тасков', e)
-            this.setLoading()
-        }
-    },
+    // async foundText() {
+    //     console.log('получение тасков')
+    //     this.setLoading()
+    //     try {
+    //         const response = await axios.get(
+    //             'http://192.168.43.150:8000/api/task/', //+ id
+    //             {
+    //                 headers: {
+    //                     Authorization: 'Token ' + localStorage.getItem('token'),
+    //                 },
+    //             },
+    //         )
+    //         console.log('task', response)
+    //         this.tasks = response.data.data
+    //         this.setLoading()
+    //     } catch (e) {
+    //         console.log('ошибка получения списка тасков', e)
+    //         this.setLoading()
+    //     }
+    // },
 
     setLoading() {
         this.loading = !this.loading

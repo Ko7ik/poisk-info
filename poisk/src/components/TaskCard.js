@@ -12,7 +12,7 @@ const TasksCard = observer(({ task }) => {
         taskUser.unsuccess = false
     }, [])
     return (
-        <div key={task.id} className="task-card">
+        <div key={task.id_task_name} className="task-card">
             <div className="flex flex-col justify-start text-left gap-3">
                 <h3 className="font-semibold">Задание № {task.id_task_name}</h3>
                 <h3>Социальная сеть: {task.social_net}</h3>
@@ -44,11 +44,11 @@ const TasksCard = observer(({ task }) => {
             </div>
             <div className="flex justify-between items-center">
                 <h3 className="status">{task.status}</h3>
-                <Link to="/monitor">
-                    <button
-                        // onClick={taskUser.foundText(task.id)}
-                        className="flex justify-center items-center gap-1 p-3 font-semibold "
-                    >
+                <Link
+                    key={task.id_task_name}
+                    to={`/tasks/${task.id_task_name}`}
+                >
+                    <button className="flex justify-center items-center gap-1 p-3 font-semibold ">
                         Посмотреть результаты
                     </button>
                 </Link>

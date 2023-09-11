@@ -27,7 +27,7 @@ const router1 = createBrowserRouter(
                 <Route path="tasks" element={<Tasks />} />
             </Route>
 
-            <Route path="/monitor" element={<MonitorFC />}></Route>
+            <Route path="/tasks/:id" element={<MonitorFC />}></Route>
             <Route path="*" element={<PageNotFound />} />
         </>,
     ),
