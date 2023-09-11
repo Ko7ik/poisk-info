@@ -32,14 +32,8 @@ const TaskForm = observer(() => {
     return (
         <FormProvider {...methods}>
             <div className="Main">
-                <form
-                    className="mt-10"
-                    onSubmit={(e) => e.preventDefault()}
-                    autoComplete="off"
-                >
-                    <h1 className="text-base font-black uppercase mb-12 pb-5 border-b-4 border-zinc-700 border-dotted">
-                        Создать новый запрос
-                    </h1>
+                <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
+                    <h1>Создать новый запрос</h1>
                     <label className="flex justify-start" htmlFor="SocNet">
                         Социальная сеть / мессенджер
                     </label>

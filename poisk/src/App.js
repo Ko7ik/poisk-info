@@ -1,8 +1,9 @@
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import ReactLoading from 'react-loading'
+import { SkeletonTheme } from 'react-loading-skeleton'
 import {
     createBrowserRouter,
     createRoutesFromElements,
-    Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom'
@@ -21,24 +22,11 @@ import { useRootStore } from './store'
 const router1 = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route
-                path="/"
-                element={
-                    <Fragment>
-                        <MenuFC />
-                        <TaskForm />
-                    </Fragment>
-                }
-            />
-            <Route
-                path="/tasks"
-                element={
-                    <Fragment>
-                        <MenuFC />
-                        <Tasks />
-                    </Fragment>
-                }
-            />
+            <Route path="/" element={<MenuFC />}>
+                <Route index element={<TaskForm />} />
+                <Route path="tasks" element={<Tasks />} />
+            </Route>
+
             <Route path="/monitor" element={<MonitorFC />}></Route>
             <Route path="*" element={<PageNotFound />} />
         </>,
@@ -61,15 +49,30 @@ const App = observer(() => {
     useEffect(() => {
         currentUser.checkToken()
     }, [])
-
-    return currentUser.isAuth ? (
-        <div className="body">
-            <RouterProvider router={router1} />
-        </div>
-    ) : (
-        (console.log('isAuth = false, загрузка логина'),
-        (<RouterProvider router={router2} />))
-    )
+    if (currentUser.isLoading) {
+        return (
+            <div className="flex flex-col justify-items-center items-center ">
+                <ReactLoading
+                    type="bars"
+                    color="#fff"
+                    height={100}
+                    width={50}
+                />
+            </div>
+        )
+    }
+    if (!currentUser.isLoading) {
+        return currentUser.isAuth ? (
+            <SkeletonTheme>
+                <div className="body">
+                    <RouterProvider router={router1} />
+                </div>
+            </SkeletonTheme>
+        ) : (
+            (console.log('isAuth = false, загрузка логина'),
+            (<RouterProvider router={router2} />))
+        )
+    }
 })
 
 export default App

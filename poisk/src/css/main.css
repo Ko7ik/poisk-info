@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
 * {
     margin: 0;
@@ -6,9 +6,9 @@
 }
 
 body {
-    background-color: #313131;
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
+    background-color: #131923;
+    color: #D0D8E4;
+    font-family: 'Rubik', sans-serif;
     font-weight: 400;
  
     
@@ -32,6 +32,8 @@ body {
     justify-content: center;
     align-items: center;
     margin-inline:2rem;
+    margin-top: 3rem;
+
 }
 
 form {
@@ -42,14 +44,24 @@ form {
     justify-content: space-between;
     align-items: stretch;
     text-align: center;
-    background-color: #d4d4d4;
-    color: #313131;
+    background-color: #232832;
+    color: #D0D8E4;
     padding: 3rem;
     border-radius: 1rem;
 
 }
 .Main  form label {
     font-weight: 500;
+}
+.Main  form h1{
+    font-weight: 600;
+    font-size: 25px;
+    color: #fff;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    border-bottom-width: 4px;
+    border-color: #D0D8E4;
+    border-bottom-style: dotted;
 }
 
 .Main form input,
@@ -66,53 +78,33 @@ form {
 .Main  form textarea {
 
     text-align: center;
-    font-family:'Roboto', sans-serif;
+    font-family:'Rubik', sans-serif;
     font-weight: 500;
     border: 0;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     outline: none;
     font-size: 15px;
-    background-color: #ebebeb;
+    background-color: #3B4250;
 }
 
-.Main  form button {
+.Main form button, .task-card button  {
     width: 100%;
     cursor: pointer;
     transition: transform 500ms ease;
-    background-color: #313131;
-    color: #d4d4d4;
+    background-color: #4070F3;
+    color: #fff;
     padding: 1rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 
-.Main  form button:hover{
-    background: #202020;
+.Main  form button:hover, .task-card button:hover{
+    background: #21439F;
     transform: scale(1.01);
 }
 
-input[type=file]::file-selector-button {
-    margin-right: 20px;
-    border: none;
-    background:  #313131;
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-   
-  }
-  
-input[type=file]::file-selector-button:hover {
-    background: #202020;
-  }
-
-.radio {
-    display: grid;
-    grid-template-columns: repeat(2, 10rem [col-start]);
 
 
-    
-}
 
 .menu {
     top: 0;
@@ -131,7 +123,7 @@ input[type=file]::file-selector-button:hover {
     overflow-y: auto;
     position: fixed;
     height: 100%;
-    background-color: #d4d4d4;
+    background-color: #232832;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -161,7 +153,7 @@ input[type=file]::file-selector-button:hover {
  
 
 .search:hover {
-    background: #ACACAC;
+    background: #4361AC;
     transform: scale(1.1);
     cursor: pointer;
 }
@@ -177,10 +169,27 @@ input[type=file]::file-selector-button:hover {
     margin-inline:2rem;
 }
 
+.task-card{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    margin: 2rem;
+    padding: 3rem;
+    background-color: #232832;
+    border-radius: 2rem;
+    color: #D0D8E4;
+}
+
+.status {
+    color: #6F8EFF;
+    font-weight: 500;
+}
+
 .content {
     scroll-behavior: smooth;
     margin-top: 2rem;
     margin-left: 4rem;
+    flex-grow: 1;
 
 }
 
@@ -192,11 +201,18 @@ input[type=file]::file-selector-button:hover {
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
-    background-color: #d4d4d4;
-    ;
-    color: #313131;
+    background-color: #232832;
+    color: #D0D8E4;
     padding: 3em;
     margin: 2rem;
+}
+
+.Monitor-layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-items: space-between;
+
 }
 
 .login {
@@ -226,3 +242,4 @@ input[type=file]::file-selector-button:hover {
     text-decoration: underline;
     transform: scale(1.1);
 } */
+
