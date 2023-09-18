@@ -1,7 +1,9 @@
+import Skeleton from 'react-loading-skeleton'
+
 const CardSkeleton = () => {
     return (
         <div className="card-skeleton">
-            <p></p>
+            <Skeleton count={4} />
         </div>
     )
 }

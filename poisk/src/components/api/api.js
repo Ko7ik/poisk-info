@@ -46,5 +46,10 @@ async function startAPI() {
     })
 }
 
+async function RegAPI(data) {
+    return axios.post(api + '/api/auth/users/', data)
+}
 export { loginFormAPI, loginIDAPI, checkTokenAPI }
 export { taskListAPI, getTaskListAPI, startAPI }
+
+export { RegAPI }

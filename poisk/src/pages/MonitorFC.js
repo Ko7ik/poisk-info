@@ -11,7 +11,7 @@ function MonitorFC() {
     React.useEffect(() => {
         axios
             .get(
-                `http://192.168.43.151:8000/api/found_data/id_task/${id_task}`,
+                `http://192.168.43.150:8000/api/found_data/id_task/${id_task}`,
                 {
                     headers: {
                         Authorization: 'Token ' + localStorage.getItem('token'),

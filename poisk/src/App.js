@@ -63,7 +63,7 @@ const App = observer(() => {
     }
     if (!currentUser.isLoading) {
         return currentUser.isAuth ? (
-            <SkeletonTheme>
+            <SkeletonTheme baseColor="#3B4250" highlightColor="#7F8490">
                 <div className="body">
                     <RouterProvider router={router1} />
                 </div>

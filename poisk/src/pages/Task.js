@@ -3,6 +3,7 @@ import { AiFillPlayCircle } from 'react-icons/ai'
 
 import { observer } from 'mobx-react-lite'
 
+import CardSkeleton from '../components/CardSkeleton'
 import TasksCard from '../components/TaskCard'
 import { useRootStore } from '../store'
 
@@ -35,7 +36,7 @@ export const Tasks = observer(() => {
                         />
                     </button>
                 </div>
-                {taskUser.loading}
+                {taskUser.loading && CardSkeleton}
                 {content}
             </div>
         </div>

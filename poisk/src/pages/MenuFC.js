@@ -17,7 +17,6 @@ const MenuFC = observer(() => {
         <>
             <div className="menu">
                 <div className="flexmenu">
-                    <Link to="/"></Link>
                     <Link to="/">
                         <div className="search" title="Запрос на поиск">
                             <FaSearch color="#AAB8CB" size={28} />{' '}

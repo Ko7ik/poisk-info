@@ -4,8 +4,7 @@ import { BsFillCheckSquareFill } from 'react-icons/bs'
 import { GrMail } from 'react-icons/gr'
 import { Link, useNavigate } from 'react-router-dom'
 
-import axios from 'axios'
-
+import { RegAPI } from '../components/api/api'
 import { Input } from '../components/FormValid/Input'
 import {
     name_validation,
@@ -24,12 +23,9 @@ const RegForm = () => {
 
         console.log('FORM: ', data)
 
-        const response = axios.post(
-            'http://192.168.43.150:8000/api/auth/users/',
-            data,
-        )
+        const response = RegAPI(data)
         console.log(response)
-        navigate('/login', { replace: true })
+        navigate('/', { replace: true })
     })
 
     return (
