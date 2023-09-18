@@ -25,7 +25,7 @@ const TaskForm = observer(() => {
         methods.reset()
         setNet('Вконтакте')
         console.log('FORM: ', form)
-        taskUser.taskList(net, form.url_group, form.search_text)
+        taskUser.taskList(net, form.url_source, form.search_text)
         console.log('задание отправлено ')
     })
 

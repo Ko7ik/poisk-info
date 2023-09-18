@@ -51,7 +51,7 @@ const App = observer(() => {
     }, [])
     if (currentUser.isLoading) {
         return (
-            <div className="flex flex-col justify-items-center items-center ">
+            <div className="loading">
                 <ReactLoading
                     type="bars"
                     color="#fff"

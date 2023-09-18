@@ -49,7 +49,16 @@ async function startAPI() {
 async function RegAPI(data) {
     return axios.post(api + '/api/auth/users/', data)
 }
+
+async function MonitAPI(data) {
+    return axios.get(api + `/api/found_data/`, {
+        headers: {
+            Authorization: 'Token ' + localStorage.getItem('token'),
+        },
+    })
+}
+
 export { loginFormAPI, loginIDAPI, checkTokenAPI }
-export { taskListAPI, getTaskListAPI, startAPI }
+export { taskListAPI, getTaskListAPI, startAPI, MonitAPI }
 
 export { RegAPI }

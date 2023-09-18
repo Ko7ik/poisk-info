@@ -113,6 +113,7 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 .flexmenu {
@@ -125,7 +126,7 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    overflow-x: hidden;
 }
 
 .backmenu {
@@ -135,8 +136,12 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    width: 7%;
+    margin-right: 2rem;
 
+}
+.backmenu:hover {
+    background-color: #3B4250;
 }
 
 .search {
@@ -147,7 +152,6 @@ form {
     height: 5rem;
 }
 
- 
 
 .search:hover {
     background: #4361AC;
@@ -166,7 +170,7 @@ form {
     margin-inline:2rem;
 }
 
-.task-card{
+.task-card {
     display: flex;
     flex-direction:column;
     justify-content: space-between;
@@ -178,14 +182,20 @@ form {
 }
 
 .status {
-    color: #6F8EFF;
+    color: #D0D8E4;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.words {
+    color: #4361AC;
     font-weight: 500;
 }
 
 .content {
     scroll-behavior: smooth;
     margin-top: 2rem;
-    margin-left: 4rem;
+    margin-left: 7rem;
     flex-grow: 1;
 
 }
@@ -218,8 +228,10 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 100%;
     margin: 2rem;
+    color: #3B4250;
 }
 
 .no-data h3 {
@@ -237,22 +249,28 @@ form {
 
 }
 
-/* .login form h2 {
-    margin-bottom: 2.5rem;
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.login p {
-    text-decoration: none;
-    font-size: 15px;
-    color: #D9D9D9;
+.card-skeleton {
+    margin: 2rem;
+   
+}
+.item-skeleton {
+    padding: 3rem;
+    border-radius: 2rem;
 }
 
-.login button {
-    margin-top: 2rem;
+.source {
+    cursor: pointer;
+    color: #4361AC;
 }
 
-.login p:hover {
-    text-decoration: underline;
-    transform: scale(1.1);
-} */
-
+.source:hover{
+    color: #6F8EFF;
+}

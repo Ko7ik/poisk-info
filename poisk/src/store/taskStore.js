@@ -1,9 +1,15 @@
 import { makeAutoObservable } from 'mobx'
 
-import { getTaskListAPI, startAPI, taskListAPI } from '../components/api/api'
+import {
+    getTaskListAPI,
+    MonitAPI,
+    startAPI,
+    taskListAPI,
+} from '../components/api/api'
 
 export const taskUser = makeAutoObservable({
     tasks: [],
+    results: [],
     isAuth: false,
     loading: false,
     success: false,
@@ -14,7 +20,7 @@ export const taskUser = makeAutoObservable({
         try {
             const taskForm = {
                 social_net: net,
-                url_group: url,
+                url_source: url,
                 search_text: text,
                 user_id: localStorage.getItem('user_id'),
             }
@@ -53,26 +59,18 @@ export const taskUser = makeAutoObservable({
         }
     },
 
-    // async foundText() {
-    //     console.log('получение тасков')
-    //     this.setLoading()
-    //     try {
-    //         const response = await axios.get(
-    //             'http://192.168.43.150:8000/api/task/', //+ id
-    //             {
-    //                 headers: {
-    //                     Authorization: 'Token ' + localStorage.getItem('token'),
-    //                 },
-    //             },
-    //         )
-    //         console.log('task', response)
-    //         this.tasks = response.data.data
-    //         this.setLoading()
-    //     } catch (e) {
-    //         console.log('ошибка получения списка тасков', e)
-    //         this.setLoading()
-    //     }
-    // },
+    async foundText() {
+        console.log('получение результатов тасков')
+        this.setLoading()
+        try {
+            const response = await MonitAPI()
+            this.results = [...response.data]
+            this.setLoading()
+        } catch (e) {
+            console.log('ошибка получения результатов', e)
+            this.setLoading()
+        }
+    },
 
     setLoading() {
         this.loading = !this.loading

@@ -59,7 +59,7 @@ export const password_validation = {
 
 export const url_validation = {
     //валидация url для формы задания
-    name: 'url_group',
+    name: 'url_source',
     label: 'URL адрес',
     type: 'text',
     id: 'url',
