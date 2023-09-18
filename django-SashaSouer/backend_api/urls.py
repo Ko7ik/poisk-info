@@ -15,10 +15,9 @@ urlpatterns = [
     path('', views.index),
     path('', include(router.urls)),
 
-    path('validate-token/', validate_token, name='validate-token'),   # Проверка на валидность токена
-    path('user_tokens/', UserTokenView.as_view(), name='user_tokens'),  # Получить токен
+    path('validate-token/', validate_token, name='validate-token'),   # ???????? ?? ?????????? ??????
+    path('user_tokens/', UserTokenView.as_view(), name='user_tokens'),  # ???????? ?????
 
-    path('parser_run/', parser_run, name='parser_run'),   # запуск парсера
 
     path('auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
@@ -27,5 +26,5 @@ urlpatterns = [
     path('task/<int:pk>/', TaskViewSetDetailView.as_view(), name='tasks-create'),
 
     path('drf-auth/', include('rest_framework.urls')),
-    path('create_json_response_to_parser/', views.create_json_response_to_parser, name='serialize_and_save_to_json'),
+    # path('create_json_response_to_parser/', views.create_json_response_to_parser, name='serialize_and_save_to_json'),
 ]

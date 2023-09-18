@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-import subprocess
-from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets, status, generics
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .service import *
 
-from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+# from .rabbitmq_publisher import send_message
 from .serializer import *
 
 
-# Отображение главной страницы
+# Отображение страницы бэкенда DRF
 def index(request):
     return render(request, 'backend_api/index.html')
 
@@ -23,42 +22,58 @@ def validate_token(request):
     return Response({'message': 'Token is valid'})
 
 
-# Код для запуска парсера
-@api_view(['POST'])
-def parser_run(request):
-    script_path = 'parser/main.py'
-    subprocess.call(['python', script_path])
-    return Response({'message': 'Parser started successfully'})
+# # Код для запуска парсера
+# @api_view(['POST'])
+# def parser_run(request):
+#     script_path = 'parser/main.py'
+#     subprocess.call(['python', script_path])
+#     return Response({'message': 'Parser started successfully'})
 
 
-# Создание JSON для парсера
-def create_json_response_to_parser(request):
-    serialized_vk_data = VKParserSerializers(VkParserData.objects.all(), many=True).data
-    serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
-    data_for_json_array = []
-    for i in range(len(Task.objects.all())):
-        data_for_json = {
-            "vk": {
-                "auth":
-                    {
-                        "login": serialized_vk_data[0]['login'],
-                        "password": serialized_vk_data[0]['password']
-                    },
-                "urls": {
-                    "feed": serialized_task_data[i]['url_group'],
-                    "login": "https://vk.com/login"
-                },
-                "task": {
-                    "id_last_post": serialized_task_data[i]['id_last_post'],
-                    "text": serialized_task_data[i]['search_text'],
-                    "id_task": serialized_task_data[i]['id']
-                }
-            }
-        }
-        data_for_json_array.append(data_for_json)
-    return JsonResponse(data_for_json_array, status=200, safe=False)
+# # Создание JSON для аутентификации парсера
+# def create_json_data_to_login():
+#     # сериализация для создания JSON
+#     serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
+#     serialized_vk_data = VKParserSerializers(VkParserData.objects.all(), many=True).data
+#     # цикл для создания JSON
+#     for i in range(len(Task.objects.all())):
+#         data_for_login = {
+#             "auth":
+#                 {
+#                     "login": serialized_vk_data[int(serialized_task_data[i]['vk_parser_data_id']) - 1]['login'],
+#                     "password": serialized_vk_data[int(serialized_task_data[i]['vk_parser_data_id']) - 1]['password']
+#                 }
+#         }
+#         # Отправка данных через RabbitMQ
+#         send_message(data_for_login)
+#         print('item ' + str(i) + ' - данные для аутентификации отправлены в очередь')
+#
+#
+# # Создание JSON для цели парсера (Вконтакте)
+# def create_json_response_to_parser():
+#     # сериализация для создания JSON
+#     serialized_task_data = TaskSerializer(Task.objects.all(), many=True).data
+#     serialized_status_data = StatusSerializers(StatusTask.objects.all(), many=True).data
+#     # цикл для создания JSON
+#     for i in range(len(Task.objects.all())):
+#         data_for_pars = {
+#             "vk": {
+#                 "urls": {
+#                     "feed": serialized_task_data[i]['url_source'],
+#                     "login": "https://vk.com/login"
+#                 },
+#                 "task": {
+#                     "id_last_post": serialized_task_data[i]['id_last_post'],
+#                     "text": serialized_task_data[i]['search_text'],
+#                     "id_task": serialized_task_data[i]['id'],
+#                     "status": serialized_status_data[0]['id']
+#                 }
+#             }
+#         }
+#         # Отправка данных через RabbitMQ
+#         send_message(data_for_pars)
+#         print('item ' + str(i) + ' - данные для цели парсера отправлены в очередь')
 
-    # {'message': 'Data serialized and saved to JSON file.'}
 
 # Выдать пользователю токен при аутентификации
 class UserTokenView(APIView):
@@ -100,7 +115,7 @@ class TaskViewSet(generics.ListCreateAPIView):
 class TaskViewSetDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]  # Проверка аутентификации
+    # permission_classes = [IsAuthenticated]  # Проверка аутентификации
 
 
 # Views для FoundData

@@ -1,12 +1,11 @@
 from rest_framework import serializers
 from .models import *
-import json
 
 
 class TaskSerializer(serializers.ModelSerializer):
     social_net = serializers.StringRelatedField()
     status = serializers.StringRelatedField()
-    user_id = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # user_id = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Task
@@ -22,4 +21,10 @@ class FoundDataSerializer(serializers.ModelSerializer):
 class VKParserSerializers(serializers.ModelSerializer):
     class Meta:
         model = VkParserData
-        fields = "__all__"
+        fields = ['id_data', 'login', 'password']
+
+
+class StatusSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = StatusTask
+        fields = ['id_status', 'status']

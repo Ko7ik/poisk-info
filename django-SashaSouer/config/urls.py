@@ -8,8 +8,3 @@ urlpatterns = [
     path('api/', include('backend_api.urls')),  # Маршруты вашего приложения
     path('api/token/', obtain_auth_token, name='api-token'),  # Маршрут для получения токена
 ]
-
-
-
-
-

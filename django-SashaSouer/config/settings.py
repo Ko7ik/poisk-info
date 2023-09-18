@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from configurate import localhost1, name_bd,user_bd,port_bd,password_bd,host_bd
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +44,9 @@ INSTALLED_APPS = [
     'djoser',
     'backend_api',
     'corsheaders',
+    'config',
+    'parser',
+
 ]
 
 MIDDLEWARE = [
@@ -64,7 +68,7 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
+        'rest_framework.permissions.AllowAny'
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -81,8 +85,8 @@ RABBITMQ_CONNECTION = {
     'password': 'guest',
 }
 
-CELERY_BROKER_URL = 'amqp://localhost:5672'  # URL-адрес брокера сообщений (например, RabbitMQ)
-CELERY_RESULT_BACKEND = 'db+postgresql://postgres:12345678@localhost/proba'  # URL-адрес базы данных для хранения результатов задач
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
