@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-localhost1 = "192.168.43.150"
-localhost = "192.168.43.150:8000"
+localhost1 = "192.168.43.180"
+localhost = "192.168.43.180:8000"
 name_bd = 'proba'
 user_bd = 'postgres'
 password_bd = '12345678'
