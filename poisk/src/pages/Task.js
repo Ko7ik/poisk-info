@@ -25,6 +25,11 @@ export const Tasks = observer(() => {
                 {taskUser.loading && <CardSkeleton cards={6} />}
 
                 {content}
+                {content.length === 0 && (
+                    <div className="no-data">
+                        <h3>Нет заданий</h3>
+                    </div>
+                )}
             </div>
         </div>
     )
