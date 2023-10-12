@@ -1,8 +1,19 @@
 #!/bin/sh
-# until python manage.py migrate --noinput; do echo "Waiting for db to be ready..."; sleep 2; done;
-echo "Migrate...";
-python manage.py makemigrations --noinput;
-python manage.py migrate --noinput;
-echo "Createsuperuser...";
-python manage.py createsuperuser --noinput;
-exec "$@";
+
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
+
+    while ! nc -z $SQL_HOST $SQL_PORT; do
+      sleep 0.1
+    done
+
+    echo "PostgreSQL started"
+fi
+
+#python manage.py flush --no-input # очистить БД
+python manage.py makemigrations
+python manage.py migrate
+#python manage.py createsuperuser
+
+exec "$@"

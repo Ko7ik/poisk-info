@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fullstack_django.iml" filepath="$PROJECT_DIR$/.idea/fullstack_django.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/poisk-info.iml" filepath="$PROJECT_DIR$/.idea/poisk-info.iml" />
     </modules>
   </component>
 </project>

@@ -1,47 +1,27 @@
-version: '3.11'
-name: poisk
-services:
-  client:
-      build:
-        context: ./client
-        dockerfile: Dockerfile
-        args:
-          - API_URL="http://localhost:8000/api/"
-      ports:
-        - '8080:8080'
-      volumes:
-        - ./client:/app
-        - /app/node_modules
-      environment:
-        - API_URL="http://localhost:8000/api"
-        - CHOKIDAR_USEPOLLING=true
-      stdin_open: true
-      tty: true
-      restart: on-failure
+version: '3.7'
 
-  api:
-    build: ./app
+services:
+  web:
+    build: ./
     command: python manage.py runserver 0.0.0.0:8000
-    stdin_open: true
-    tty: true
     volumes:
-      - ./app/:/usr/src/app/
+      - ./:/usr/src/app/
     ports:
       - 8000:8000
     env_file:
       - ./.env.dev
     depends_on:
-      - db_dev
-    restart: on-failure
-
-  db_dev:
-    image: postgres:13.0-alpine
+      - db
+  db:
+    image: postgres:12.0-alpine
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data_dev/
+      - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345678
       - POSTGRES_DB=proba
 
 volumes:
-  postgres_data_dev:
+  postgres_db:
+  postgres_data:
+  postgres_admin:

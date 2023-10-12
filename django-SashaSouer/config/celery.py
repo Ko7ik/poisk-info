@@ -6,7 +6,7 @@ from celery import Celery
 # Установка переменной окружения для настройки Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery('backend_api')
+app = Celery('backend')
 
 # Загрузка конфигурации из файла settings.py
 app.config_from_object('django.conf:settings', namespace='CELERY')
