@@ -33,7 +33,7 @@ const TaskForm = observer(() => {
         <FormProvider {...methods}>
             <div className="Main">
                 <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
-                    <h1>Создать новый запрос</h1>
+                    <h3>Создать новый запрос</h3>
                     <label className="flex justify-start" htmlFor="SocNet">
                         Социальная сеть / мессенджер
                     </label>
@@ -66,7 +66,8 @@ const TaskForm = observer(() => {
                         </button>
                     </div>
                 </form>
-            </div>a
+            </div>
+            a
         </FormProvider>
     )
 })
